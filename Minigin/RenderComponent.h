@@ -25,7 +25,8 @@ namespace dae
 		const SDL_Rect& GetImageDimensions();
 
 		void Draw();
-		void SetDestRectDefaultSize(float xSize, float ySize);
+		void SetTexutre(const std::shared_ptr<Texture2D>& pTexture);
+		void SetDestRectDefaultSize(int xSize, int ySize);
 		void SetSourceRect(const SDL_Rect& rect);
 		void SetTransform(TransformComponent* pTransform);
 	private:

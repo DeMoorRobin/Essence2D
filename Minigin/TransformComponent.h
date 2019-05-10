@@ -25,7 +25,7 @@ namespace dae
 		void SetPosition(const glm::vec3& pos);
 
 		bool HasChanged() const{ return m_HasChanged; };
-
+		void ResetChanged() { m_HasChanged = false; };
 	protected:
 		void Initialize() override;
 		void Update() override;

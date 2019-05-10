@@ -1,5 +1,6 @@
 #pragma once
 struct SDL_Texture;
+#include "SDL_rect.h"
 
 namespace dae
 {

@@ -43,13 +43,13 @@ void dae::TextComponent::Update()
 	SDL_DestroyTexture(m_pTexture);
 	Initialize();
 }
-void dae::TextComponent::Draw()
-{
-	if (m_pTexture != nullptr)
-	{
-		dae::Renderer::GetInstance().RenderTexture(m_pTexture, 0.0f,0.0f);
-	}
-}
+//void dae::TextComponent::Draw()
+//{
+//	if (m_pTexture != nullptr)
+//	{
+//		dae::Renderer::GetInstance().RenderTexture(m_pTexture, 0.0f,0.0f);
+//	}
+//}
 
 void dae::TextComponent::SetText(const std::string& text)
 {

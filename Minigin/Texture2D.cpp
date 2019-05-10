@@ -14,6 +14,7 @@ SDL_Texture* dae::Texture2D::GetSDLTexture() const
 }
 
 dae::Texture2D::Texture2D(SDL_Texture* texture)
+	:m_Dimensions{}
 {
 	mTexture = texture;
 }

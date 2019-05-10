@@ -37,7 +37,6 @@ namespace dae
 		std::vector<GameObject*> m_Children;
 		std::vector<BaseComponent*> m_pComponents;
 		TransformComponent* m_pTransform;
-		bool m_HasTransformChanged;
 		RenderComponent* m_pRenderComponent;
 	};
 }

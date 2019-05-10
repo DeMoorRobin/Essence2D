@@ -3,6 +3,8 @@
 
 
 dae::TransformComponent::TransformComponent()
+	:m_HasChanged(true)
+	,m_Position{}
 {
 }
 

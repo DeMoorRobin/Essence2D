@@ -1,14 +1,24 @@
-﻿  Minigin.cpp
-  Minigin.vcxproj -> E:\Desktop\Prog4\Essence2D\Win32\Debug\Minigin.exe
-  E:\Desktop\Prog4\Essence2D\3rdParty\SDL2\lib\x86\SDL2.dll
-  1 File(s) copied
-  E:\Desktop\Prog4\Essence2D\3rdParty\SDL2_image\lib\x86\libjpeg-9.dll
-  E:\Desktop\Prog4\Essence2D\3rdParty\SDL2_image\lib\x86\libpng16-16.dll
-  E:\Desktop\Prog4\Essence2D\3rdParty\SDL2_image\lib\x86\libtiff-5.dll
-  E:\Desktop\Prog4\Essence2D\3rdParty\SDL2_image\lib\x86\libwebp-7.dll
-  E:\Desktop\Prog4\Essence2D\3rdParty\SDL2_image\lib\x86\SDL2_image.dll
-  E:\Desktop\Prog4\Essence2D\3rdParty\SDL2_image\lib\x86\zlib1.dll
-  6 File(s) copied
-  E:\Desktop\Prog4\Essence2D\3rdParty\SDL2_ttf\lib\x86\libfreetype-6.dll
-  E:\Desktop\Prog4\Essence2D\3rdParty\SDL2_ttf\lib\x86\SDL2_ttf.dll
-  2 File(s) copied
+﻿  MiniginPCH.cpp
+  BaseComponent.cpp
+  FPSTestScene.cpp
+  Font.cpp
+  GameObject.cpp
+  InputManager.cpp
+  Log.cpp
+  Main.cpp
+  Minigin.cpp
+  RenderComponent.cpp
+  Renderer.cpp
+  ResourceManager.cpp
+  Scene.cpp
+  SceneManager.cpp
+  TextComponent.cpp
+  Texture2D.cpp
+  Time.cpp
+  TransformComponent.cpp
+  Generating Code...
+     Creating library E:\Desktop\Prog4\GitHub\Essence2D\Win32\Debug\Minigin.lib and object E:\Desktop\Prog4\GitHub\Essence2D\Win32\Debug\Minigin.exp
+RenderComponent.obj : error LNK2019: unresolved external symbol __imp__glPopMatrix@0 referenced in function "public: void __thiscall dae::RenderComponent::Draw(void)" (?Draw@RenderComponent@dae@@QAEXXZ)
+RenderComponent.obj : error LNK2019: unresolved external symbol __imp__glPushMatrix@0 referenced in function "public: void __thiscall dae::RenderComponent::Draw(void)" (?Draw@RenderComponent@dae@@QAEXXZ)
+RenderComponent.obj : error LNK2019: unresolved external symbol __imp__glTranslatef@12 referenced in function "public: void __thiscall dae::RenderComponent::Draw(void)" (?Draw@RenderComponent@dae@@QAEXXZ)
+E:\Desktop\Prog4\GitHub\Essence2D\Win32\Debug\Minigin.exe : fatal error LNK1120: 3 unresolved externals

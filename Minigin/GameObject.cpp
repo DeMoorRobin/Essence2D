@@ -37,7 +37,10 @@ void dae::GameObject::BaseDraw()
 {
 	if (m_pRenderComponent)
 	{
-		if(m_HasTransformChanged)
-			m_pRenderComponent->
+		if (m_pTransform->HasChanged())
+			m_pRenderComponent->SetTransform(m_pTransform);
+
+		m_pRenderComponent->Draw();
 	}
+	m_pTransform->ResetChanged();
 }

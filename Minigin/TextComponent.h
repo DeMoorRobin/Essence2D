@@ -16,7 +16,6 @@ namespace dae
 	protected:
 		void Initialize() override;
 		void Update() override;
-		void Draw() override;
 	private:
 		dae::Font* m_pFont;
 		std::string m_Text;
