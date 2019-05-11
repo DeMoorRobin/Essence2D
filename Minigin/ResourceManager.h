@@ -1,5 +1,6 @@
 #pragma once
 #include "Singleton.h"
+#include <unordered_map>
 
 namespace dae
 {
@@ -7,14 +8,16 @@ namespace dae
 	class Font;
 	class ResourceManager final : public Singleton<ResourceManager>
 	{
-		std::string mDataPath;
-		std::shared_ptr<Texture2D> LoadTexture(const std::string& file);
+		std::string m_DataPath;
+		Texture2D LoadTexture(const std::string& file);
 	public:
 		ResourceManager() = default;
 
 		void Init(std::string&& data);
 
-		std::shared_ptr<Font> LoadFont(const std::string& file, unsigned int size);
+		Font* LoadFont(const std::string& file, unsigned int size);
+		
+		std::unordered_map<std::string, Texture2D> m_Textures;
 	};
 
 }

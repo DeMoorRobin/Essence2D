@@ -4,10 +4,10 @@ struct SDL_Renderer;
 struct SDL_Texture;
 #include <SDL_image.h>
 #include "TransformComponent.h"
+#include "Texture2D.h"
 
 namespace dae
 {
-	class Texture2D;
 	class Renderer;
 	class TransformComponent;
 	class RenderComponent
@@ -22,15 +22,15 @@ namespace dae
 		RenderComponent &operator=(const RenderComponent &&) = delete;
 
 
-		const SDL_Rect& GetImageDimensions();
+		//const SDL_Rect& GetImageDimensions();
 
 		void Draw();
-		void SetTexutre(const std::shared_ptr<Texture2D>& pTexture);
+		void SetTexture(Texture2D texture);
 		void SetDestRectDefaultSize(int xSize, int ySize);
 		void SetSourceRect(const SDL_Rect& rect);
 		void SetTransform(TransformComponent* pTransform);
 	private:
-		std::shared_ptr<Texture2D> m_pTexture;
+		Texture2D m_Texture;
 		SDL_Rect m_SourceRect;
 		SDL_Rect m_DestRect;
 		TransformComponent m_TransformComponent;

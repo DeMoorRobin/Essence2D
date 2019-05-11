@@ -2,19 +2,9 @@
 #include "Texture2D.h"
 #include <SDL.h>
 
-
-dae::Texture2D::~Texture2D()
+dae::Texture2D::Texture2D(float width, float height, GLuint id)
+	:m_Width{width}
+	,m_Height{height}
+	,m_ID{id}
 {
-	SDL_DestroyTexture(mTexture);
-}
-
-SDL_Texture* dae::Texture2D::GetSDLTexture() const
-{
-	return mTexture;
-}
-
-dae::Texture2D::Texture2D(SDL_Texture* texture)
-	:m_Dimensions{}
-{
-	mTexture = texture;
 }

@@ -5,9 +5,12 @@
 #include "Font.h"
 #include "Time.h"
 #include <string>
+#include "GameObject.h"
+#include "RenderComponent.h"
 
 dae::TextComponent::TextComponent(const std::string& text, const std::string& fontPath, unsigned int fontSize)
-	:m_pFont{ nullptr }
+	:BaseComponent{true}
+	,m_pFont{ nullptr }
 	,m_Text{ text }
 {
 	m_pFont = new dae::Font(fontPath, fontSize);
@@ -42,6 +45,7 @@ void dae::TextComponent::Update()
 	m_Text = std::to_string(Time::GetInstance().GetFPS());
 	SDL_DestroyTexture(m_pTexture);
 	Initialize();
+	m_pGameObject->GetRenderComponent()->SetTexture(m_pTexture);
 }
 //void dae::TextComponent::Draw()
 //{

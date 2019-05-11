@@ -1,22 +1,26 @@
 #pragma once
 
-class GameObject;
-
 namespace dae
 {
+	class GameObject;
+
 
 	class BaseComponent
 	{
 		friend class GameObject;
 	public:
-		BaseComponent();
+		BaseComponent(bool requiresRenderComponent = false);
 		virtual ~BaseComponent() = default;
+
+		bool RequiresRenderComponent() { return m_RequiresRenderComponent; };
 
 	protected:
 		GameObject* m_pGameObject;
 
 		virtual void Initialize() = 0;
 		virtual void Update() = 0;
+	private:
+		bool m_RequiresRenderComponent;
 	};
 }
 

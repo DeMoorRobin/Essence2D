@@ -26,7 +26,10 @@ namespace dae
 		//void RemoveChild(GameObject* pObj);
 
 		void AddComponent(BaseComponent* pComp);
+		void AddRenderComponent(RenderComponent* pRenderComp);
 		//void RemoveComponent(BaseComponent* pComp);
+
+		RenderComponent* GetRenderComponent() const { return m_pRenderComponent; };
 
 	protected:
 		//virtual void Update() = 0;

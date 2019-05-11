@@ -20,6 +20,9 @@ void dae::Minigin::Initialize()
 		throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
 	}
 
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+
 	window = SDL_CreateWindow(
 		"Programming 4 assignment",
 		SDL_WINDOWPOS_UNDEFINED,
@@ -36,6 +39,23 @@ void dae::Minigin::Initialize()
 	Renderer::GetInstance().Init(window);
 
 	m_pSceneManager = new dae::SceneManager{};
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	// Set up a two-dimensional orthographic viewing region.
+	gluOrtho2D(0, 640, 0, 480); // y from bottom to top
+
+	// Set the viewport to the client window area
+	// The viewport is the rectangular region of the window where the image is drawn.
+	glViewport(0, 0, 640, 480);
+
+	// Set the Modelview matrix to the identity matrix
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	// Enable color blending and use alpha blending
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 }
 

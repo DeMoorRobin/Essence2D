@@ -23,6 +23,11 @@ dae::GameObject::~GameObject()
 
 void dae::GameObject::AddComponent(BaseComponent* pComp)
 {
+	if (pComp->RequiresRenderComponent() && !m_pRenderComponent)
+	{
+		std::cout << "This component requires a renderComponent";
+		return;
+	}
 	m_pComponents.push_back(pComp);
 }
 
@@ -43,4 +48,12 @@ void dae::GameObject::BaseDraw()
 		m_pRenderComponent->Draw();
 	}
 	m_pTransform->ResetChanged();
+}
+
+void dae::GameObject::AddRenderComponent(RenderComponent* pRenderComponent)
+{
+	if (!m_pRenderComponent)
+		m_pRenderComponent = pRenderComponent;
+	else
+		std::cout << "This object already has a renderComponent" << std::endl;
 }

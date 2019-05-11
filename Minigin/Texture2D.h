@@ -6,21 +6,16 @@ namespace dae
 {
 	class Texture2D
 	{
-	public:
-		SDL_Texture* GetSDLTexture() const;
-		explicit Texture2D(SDL_Texture* texture);
-		~Texture2D();
+	public:;
+		explicit Texture2D(float width, float height, GLuint id);
 
-		const SDL_Rect& GetImageDimensions() {
-			return m_Dimensions;
-		};
+		//Texture2D is supposed to have copies. Unlike the name suggests it does not contain a texture. just the id of the bound gl tex
 
-		Texture2D(const Texture2D &) = delete;
-		Texture2D(Texture2D &&) = delete;
-		Texture2D & operator= (const Texture2D &) = delete;
-		Texture2D & operator= (const Texture2D &&) = delete;
+		float GetWidth() const { return m_Width; };
+		float GetHeight() const { return m_Height; };
 	private:
-		SDL_Texture* mTexture;
-		SDL_Rect m_Dimensions;
+		const float m_Width;
+		const float m_Height;
+		const GLuint m_ID;
 	};
 }
