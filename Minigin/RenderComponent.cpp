@@ -22,17 +22,9 @@ void dae::RenderComponent::Draw()
 {
 	glPushMatrix();
 	glTranslatef(m_TransformComponent.GetPosition().x-m_DestRect.w/2.0f, m_TransformComponent.GetPosition().y-m_DestRect.h/2.0f, 0);
-	
 
-	glColor4f(1.0f, 0.0f, 1.0f, 1.0f);
-	glBegin(GL_POLYGON);
-	{
-		glVertex2f(m_DestRect.x, m_DestRect.y);
-		glVertex2f(m_DestRect.x + m_DestRect.w, m_DestRect.y);
-		glVertex2f(m_DestRect.x + m_DestRect.w, m_DestRect.y + m_DestRect.h);
-		glVertex2f(m_DestRect.x, m_DestRect.y + m_DestRect.h);
-	}
-	glEnd();
+	m_DestRect.y = 20;
+	s_pRenderer->RenderTexture(m_Texture, m_DestRect, m_SourceRect);
 	glPopMatrix();
 }
 
@@ -59,9 +51,13 @@ void dae::RenderComponent::SetTransform(TransformComponent* pTransform)
 	m_TransformComponent = *pTransform;
 }
 
+void dae::RenderComponent::SetStringTexture(const std::string & , TTF_Font * )
+{
+}
+
 void dae::RenderComponent::SetTexture(dae::Texture2D texture)
 {
 	m_Texture = texture;
-	m_DestRect.w = texture.GetWidth();
-	m_DestRect.h = texture.GetHeight();
+	m_DestRect.w = int(texture.GetWidth());
+	m_DestRect.h = int(texture.GetHeight());
 }

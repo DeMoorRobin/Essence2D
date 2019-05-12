@@ -5,7 +5,7 @@
 #include "TextComponent.h"
 #include "TransformComponent.h"
 #include "InputManager.h"
-
+#include "RenderComponent.h"
 
 FPSTestScene::FPSTestScene()
 {
@@ -43,7 +43,9 @@ void FPSTestScene::Initialize()
 	dae::GameObject* fpsObject = new dae::GameObject();
 	AddChild(fpsObject);
 	//
-	dae::TextComponent* textComp = new dae::TextComponent{"mho","../Data/Lingua.otf" ,10};
+	dae::RenderComponent* renderComp = new dae::RenderComponent{};
+	fpsObject->AddRenderComponent(renderComp);
+	dae::TextComponent* textComp = new dae::TextComponent{"WOLOLOLO","../Data/Lingua.otf" ,10};
 	fpsObject->AddComponent(textComp);
 	//TransformComponent* plop = new TransformComponent{};
 	//fpsObject->AddComponent(plop);

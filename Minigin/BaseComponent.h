@@ -13,7 +13,7 @@ namespace dae
 		virtual ~BaseComponent() = default;
 
 		bool RequiresRenderComponent() { return m_RequiresRenderComponent; };
-
+		void SetGameObject(GameObject* pObject) { m_pGameObject = pObject; };
 	protected:
 		GameObject* m_pGameObject;
 

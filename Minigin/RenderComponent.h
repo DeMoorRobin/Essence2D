@@ -29,6 +29,7 @@ namespace dae
 		void SetDestRectDefaultSize(int xSize, int ySize);
 		void SetSourceRect(const SDL_Rect& rect);
 		void SetTransform(TransformComponent* pTransform);
+		void SetStringTexture(const std::string& text, TTF_Font* pFont);
 	private:
 		Texture2D m_Texture;
 		SDL_Rect m_SourceRect;

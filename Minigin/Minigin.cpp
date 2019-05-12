@@ -25,8 +25,8 @@ void dae::Minigin::Initialize()
 
 	window = SDL_CreateWindow(
 		"Programming 4 assignment",
-		SDL_WINDOWPOS_UNDEFINED,
-		SDL_WINDOWPOS_UNDEFINED,
+		SDL_WINDOWPOS_CENTERED,
+		SDL_WINDOWPOS_CENTERED,
 		640,
 		480,
 		SDL_WINDOW_OPENGL
@@ -36,7 +36,18 @@ void dae::Minigin::Initialize()
 		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
 	}
 
+	m_pContext = SDL_GL_CreateContext(window);
+	if (m_pContext == nullptr)
+	{
+		std::cerr << "Core::Initialize( ), error when calling SDL_GL_CreateContext: " << SDL_GetError() << std::endl;
+		return;
+	}
+
+
 	Renderer::GetInstance().Init(window);
+
+
+	SDL_GL_SetSwapInterval(0);
 
 	m_pSceneManager = new dae::SceneManager{};
 	glMatrixMode(GL_PROJECTION);
@@ -88,9 +99,12 @@ void dae::Minigin::LoadGame() const
 void dae::Minigin::Cleanup()
 {
 	Renderer::GetInstance().Destroy();
+	SDL_GL_DeleteContext(m_pContext);
 	SDL_DestroyWindow(window);
 	delete m_pSceneManager;
 	window = nullptr;
+	TTF_Quit();
+	IMG_Quit();
 	SDL_Quit();
 }
 
@@ -105,7 +119,7 @@ void dae::Minigin::Run()
 
 	{
 		auto t = std::chrono::high_resolution_clock::now();
-		auto& renderer = Renderer::GetInstance();
+		//auto& renderer = Renderer::GetInstance();
 		auto& input = InputManager::GetInstance();
 
 		bool doContinue = true;
@@ -117,11 +131,11 @@ void dae::Minigin::Run()
 
 			m_pSceneManager->BaseUpdate();
 
-
-			SDL_RenderClear(renderer.GetSDLRenderer());
+			//SDL_SetRenderDrawColor(renderer.GetSDLRenderer(), 255, 255, 255,255);
+			//SDL_RenderClear(renderer.GetSDLRenderer());
 			m_pSceneManager->BaseDraw();
-			SDL_RenderPresent(renderer.GetSDLRenderer());
-
+			//SDL_RenderPresent(renderer.GetSDLRenderer());
+			SDL_GL_SwapWindow(window);
 			t += std::chrono::milliseconds(msPerFrame);
 			std::this_thread::sleep_until(t);
 		}

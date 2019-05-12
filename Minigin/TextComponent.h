@@ -19,7 +19,7 @@ namespace dae
 	private:
 		dae::Font* m_pFont;
 		std::string m_Text;
-		SDL_Texture* m_pTexture;
+		Texture2D m_Texture;
 	};
 }
 

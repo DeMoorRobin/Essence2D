@@ -1,12 +1,12 @@
 #include "MiniginPCH.h"
 #include "TextComponent.h"
 #include "Renderer.h"
-#include "Texture2D.h"
 #include "Font.h"
 #include "Time.h"
 #include <string>
 #include "GameObject.h"
 #include "RenderComponent.h"
+#include "ResourceManager.h"
 
 dae::TextComponent::TextComponent(const std::string& text, const std::string& fontPath, unsigned int fontSize)
 	:BaseComponent{true}
@@ -21,31 +21,32 @@ dae::TextComponent::TextComponent(const std::string& text, const std::string& fo
 dae::TextComponent::~TextComponent()
 {
 	delete m_pFont;
-	SDL_DestroyTexture(m_pTexture);
+	m_Texture.ReleaseID();
 }
 
 
 void dae::TextComponent::Initialize()
 {
-	const SDL_Color color = { 255,255,255 };
-	const auto surf = TTF_RenderText_Blended(m_pFont->GetFont(), m_Text.c_str(), color);
-	if (surf == nullptr)
-	{
-		throw std::runtime_error(std::string("Render text failed: ") + SDL_GetError());
-	}
-	m_pTexture = SDL_CreateTextureFromSurface(dae::Renderer::GetInstance().GetSDLRenderer(), surf);
-	if (m_pTexture == nullptr)
-	{
-		throw std::runtime_error(std::string("Create text texture from surface failed: ") + SDL_GetError());
-	}
-	SDL_FreeSurface(surf);
+	//const SDL_Color color = { 255,255,255 };
+	//const auto surf = TTF_RenderText_Blended(m_pFont->GetFont(), m_Text.c_str(), color);
+	//if (surf == nullptr)
+	//{
+	//	throw std::runtime_error(std::string("Render text failed: ") + SDL_GetError());
+	//}
+	//m_pTexture = SDL_CreateTextureFromSurface(dae::Renderer::GetInstance().GetSDLRenderer(), surf);
+	//if (m_pTexture == nullptr)
+	//{
+	//	throw std::runtime_error(std::string("Create text texture from surface failed: ") + SDL_GetError());
+	//}
+	//SDL_FreeSurface(surf);
 }
 void dae::TextComponent::Update()
 {
 	m_Text = std::to_string(Time::GetInstance().GetFPS());
-	SDL_DestroyTexture(m_pTexture);
-	Initialize();
-	m_pGameObject->GetRenderComponent()->SetTexture(m_pTexture);
+	m_Texture.ReleaseID();
+	m_Texture = ResourceManager::GetInstance().LoadStringTexture(m_pFont->GetFont(), m_Text);
+	m_pGameObject->GetRenderComponent()->SetTexture(m_Texture);
+	
 }
 //void dae::TextComponent::Draw()
 //{

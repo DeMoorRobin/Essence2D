@@ -18,6 +18,7 @@ dae::GameObject::~GameObject()
 		delete pComponent;
 	}
 	delete m_pTransform;
+	delete m_pRenderComponent;
 }
 
 
@@ -29,6 +30,7 @@ void dae::GameObject::AddComponent(BaseComponent* pComp)
 		return;
 	}
 	m_pComponents.push_back(pComp);
+	pComp->SetGameObject(this);
 }
 
 void dae::GameObject::BaseUpdate()
