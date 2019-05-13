@@ -3,6 +3,7 @@
 #include <SDL.h>
 #include "SceneManager.h"
 #include "Texture2D.h"
+#include <algorithm>
 
 void dae::Renderer::Init(SDL_Window *)
 {
@@ -90,5 +91,40 @@ void dae::Renderer::RenderTexture(const Texture2D & texture, const SDL_Rect & de
 	}
 	glDisable(GL_TEXTURE_2D);
 
+	//glBegin(GL_QUADS);
+	//{
+	//	//glTexCoord2f(leftUV, botUV);
+	//	glVertex2f(left, bot);
+	//
+	//	//glTexCoord2f(leftUV, topUV);
+	//	glVertex2f(left, top);
+	//
+	//	//glTexCoord2f(rightUV, topUV);
+	//	glVertex2f(right, top);
+	//
+	//	//glTexCoord2f(rightUV, botUV);
+	//	glVertex2f(right, bot);
+	//}
+	//glEnd();
 }
 
+void dae::Renderer::Draw()
+{
+	Sort();
+	for (RenderComponent& r : m_RenderComponents)
+	{
+		r.Draw();
+	}
+}
+
+void dae::Renderer::Sort()
+{
+	std::sort(m_RenderComponents.begin(), m_RenderComponents.end(), [](dae::RenderComponent& a, dae::RenderComponent& b) {return a.GetDepth() > b.GetDepth(); });
+}
+
+dae::RenderComponent* dae::Renderer::RequestRenderComponent()
+{
+	m_RenderComponents.push_back(RenderComponent{});
+	return &m_RenderComponents.back();
+	//return nullptr;
+}

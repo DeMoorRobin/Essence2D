@@ -30,7 +30,7 @@ void dae::SceneManager::BaseUpdate()
 
 void dae::SceneManager::BaseDraw()
 {
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	m_pActiveScene->BaseDraw();
 }

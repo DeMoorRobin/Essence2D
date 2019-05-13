@@ -144,5 +144,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="vertexShader.glsl">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="pixelShader.glsl">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -15,7 +15,7 @@ std::basic_streambuf<char>::int_type dae::DebugStreambuf::overflow(int_type c)
 
 dae::Cout2VisualStudioDebugOutput::Cout2VisualStudioDebugOutput()
 {
-	default_stream = std::cout.rdbuf(&dbgstream);
+	//default_stream = std::cout.rdbuf(&dbgstream);
 }
 
 dae::Cout2VisualStudioDebugOutput::~Cout2VisualStudioDebugOutput()

@@ -18,7 +18,6 @@ dae::GameObject::~GameObject()
 		delete pComponent;
 	}
 	delete m_pTransform;
-	delete m_pRenderComponent;
 }
 
 
@@ -47,7 +46,7 @@ void dae::GameObject::BaseDraw()
 		if (m_pTransform->HasChanged())
 			m_pRenderComponent->SetTransform(m_pTransform);
 
-		m_pRenderComponent->Draw();
+		//m_pRenderComponent->Draw();
 	}
 	m_pTransform->ResetChanged();
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include "GameObject.h"
 
 	class FPSTestScene final : public dae::Scene
 	{
@@ -11,9 +12,11 @@
 		void Update() override;
 		void Draw() override;
 
-	private:	
-
+	private:
 		void Initialize();
+		GLuint vertexBuffer;
+		GLuint programID;
+		GLuint indexBuffer;
 	};
 
 

@@ -30,7 +30,7 @@ namespace dae
 		//void RemoveComponent(BaseComponent* pComp);
 
 		RenderComponent* GetRenderComponent() const { return m_pRenderComponent; };
-
+		TransformComponent* GetTransform()const { return m_pTransform; };
 	protected:
 		//virtual void Update() = 0;
 		//virtual void Draw() = 0;

@@ -19,9 +19,8 @@ void dae::Minigin::Initialize()
 	{
 		throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
 	}
-
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+	
+	
 
 	window = SDL_CreateWindow(
 		"Programming 4 assignment",
@@ -36,38 +35,47 @@ void dae::Minigin::Initialize()
 		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
 	}
 
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+
+
 	m_pContext = SDL_GL_CreateContext(window);
 	if (m_pContext == nullptr)
 	{
 		std::cerr << "Core::Initialize( ), error when calling SDL_GL_CreateContext: " << SDL_GetError() << std::endl;
 		return;
 	}
+	
+	//SDL_GL_MakeCurrent(window, m_pContext);
+	glewExperimental = GL_TRUE;
 
+	auto test = glewInit();
+	if (test == GLEW_OK)std::cout << "plop\n";
+	
 
 	Renderer::GetInstance().Init(window);
-
-
 	SDL_GL_SetSwapInterval(0);
 
 	m_pSceneManager = new dae::SceneManager{};
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-
-	// Set up a two-dimensional orthographic viewing region.
-	gluOrtho2D(0, 640, 0, 480); // y from bottom to top
-
+	auto er = glGetError();
+	if (GL_NO_ERROR != er)
+	{
+		std::cout << gluErrorString(er) << std::endl;
+	}
 	// Set the viewport to the client window area
 	// The viewport is the rectangular region of the window where the image is drawn.
 	glViewport(0, 0, 640, 480);
 
-	// Set the Modelview matrix to the identity matrix
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
 
-	// Enable color blending and use alpha blending
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
+	
+	GLuint vertexArrayID{};
+	glGenVertexArrays(1, &vertexArrayID);
+	glBindVertexArray(vertexArrayID);
+	
+	
+	
 }
 
 /**
@@ -130,11 +138,7 @@ void dae::Minigin::Run()
 			Time::GetInstance().EnterNextFrame();
 
 			m_pSceneManager->BaseUpdate();
-
-			//SDL_SetRenderDrawColor(renderer.GetSDLRenderer(), 255, 255, 255,255);
-			//SDL_RenderClear(renderer.GetSDLRenderer());
 			m_pSceneManager->BaseDraw();
-			//SDL_RenderPresent(renderer.GetSDLRenderer());
 			SDL_GL_SwapWindow(window);
 			t += std::chrono::milliseconds(msPerFrame);
 			std::this_thread::sleep_until(t);

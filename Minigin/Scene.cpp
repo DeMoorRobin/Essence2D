@@ -1,6 +1,7 @@
 #include "MiniginPCH.h"
 #include "Scene.h"
 #include "GameObject.h"
+#include "Renderer.h"
 
 dae::Scene::Scene()
 	:m_pChildren{ (std::vector<GameObject*>()) }
@@ -28,10 +29,12 @@ void dae::Scene::BaseUpdate()
 
 void dae::Scene::BaseDraw()
 {
-	for (GameObject* pObj : m_pChildren)
-	{
-		pObj->BaseDraw();
-	}
+	//for (GameObject* pObj : m_pChildren)
+	//{
+	//	pObj->BaseDraw();
+	//}
+	//dae::Renderer::GetInstance().Draw();
+	Draw();
 }
 
 void dae::Scene::AddChild(GameObject* Obj)

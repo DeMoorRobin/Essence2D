@@ -14,12 +14,12 @@ namespace dae
 	{
 	public:
 		RenderComponent();
-		~RenderComponent();
+		//~RenderComponent();
 
-		RenderComponent(const RenderComponent&) = delete;
-		RenderComponent(RenderComponent &&) = delete;
-		RenderComponent &operator=(const RenderComponent &) = delete;
-		RenderComponent &operator=(const RenderComponent &&) = delete;
+		//RenderComponent(const RenderComponent&) = delete;
+		//RenderComponent(RenderComponent &&) = delete;
+		//RenderComponent &operator=(const RenderComponent &) = delete;
+		//RenderComponent &operator=(const RenderComponent &&) = delete;
 
 
 		//const SDL_Rect& GetImageDimensions();
@@ -30,11 +30,13 @@ namespace dae
 		void SetSourceRect(const SDL_Rect& rect);
 		void SetTransform(TransformComponent* pTransform);
 		void SetStringTexture(const std::string& text, TTF_Font* pFont);
+		int GetDepth() { return int(m_TransformComponent.GetPosition().z); };
+
 	private:
+		TransformComponent m_TransformComponent;
+		SDL_Rect m_DestRect;
 		Texture2D m_Texture;
 		SDL_Rect m_SourceRect;
-		SDL_Rect m_DestRect;
-		TransformComponent m_TransformComponent;
 		static Renderer* s_pRenderer;
 		
 

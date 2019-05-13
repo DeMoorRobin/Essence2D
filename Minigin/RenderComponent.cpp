@@ -10,20 +10,18 @@ dae::Renderer* dae::RenderComponent::s_pRenderer{};
 
 dae::RenderComponent::RenderComponent()
 	:m_Texture{0,0,0}
+	,m_SourceRect{}
+	,m_DestRect{}
 {
 }
 
-dae::RenderComponent::~RenderComponent()
-{
-
-}
 
 void dae::RenderComponent::Draw()
 {
 	glPushMatrix();
-	glTranslatef(m_TransformComponent.GetPosition().x-m_DestRect.w/2.0f, m_TransformComponent.GetPosition().y-m_DestRect.h/2.0f, 0);
-
-	m_DestRect.y = 20;
+	glTranslatef(m_TransformComponent.GetPosition().x - m_DestRect.w / 2.0f*m_TransformComponent.GetScale().x, m_TransformComponent.GetPosition().y- m_DestRect.h/ 2.0f*m_TransformComponent.GetScale().y, 0);
+	glScalef(m_TransformComponent.GetScale().x, m_TransformComponent.GetScale().y, 1.0f);
+	glTranslatef(GLfloat(-m_DestRect.x), GLfloat(-m_DestRect.y), 0);
 	s_pRenderer->RenderTexture(m_Texture, m_DestRect, m_SourceRect);
 	glPopMatrix();
 }
