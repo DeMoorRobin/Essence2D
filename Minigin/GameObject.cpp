@@ -48,7 +48,11 @@ void dae::GameObject::BaseDraw()
 void dae::GameObject::AddRenderComponent(RenderComponent* pRenderComponent)
 {
 	if (!m_pRenderComponent)
+	{
 		m_pRenderComponent = pRenderComponent;
+		pRenderComponent->SetTransform(m_pTransform);
+	}
+		
 	else
 		std::cout << "This object already has a renderComponent" << std::endl;
 }

@@ -20,7 +20,7 @@ namespace dae
 		Texture2D LoadStringTexture(TTF_Font *pFont, const std::string& text);
 		Font* LoadFont(const std::string& file, unsigned int size);
 		std::unordered_map<std::string, Texture2D> m_Textures;
-		GLuint LoadShaders(const char * vertex_file_path, const char * fragment_file_path);
+		GLuint LoadShaders(const char * vertex_file_path, const char * fragment_file_path, const char * geometry_file_path = nullptr);
 	};
 
 }

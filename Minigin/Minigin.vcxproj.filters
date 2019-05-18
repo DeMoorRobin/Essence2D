@@ -156,5 +156,8 @@
     <None Include="pixelShader.glsl">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="GeometryShader.glsl">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

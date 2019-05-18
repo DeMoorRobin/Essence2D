@@ -246,6 +246,7 @@ xcopy "$(SolutionDir)3rdParty\glew\bin\Release\x64\glew32.dll" "$(OutputPath)" /
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="GeometryShader.glsl" />
     <None Include="pixelShader.glsl" />
     <None Include="vertexShader.glsl" />
   </ItemGroup>

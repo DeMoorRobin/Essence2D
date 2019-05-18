@@ -5,6 +5,7 @@ layout(location = 1) in int texID;
 layout(location = 2) in int id;
 
 out vec2 texCoord0;
+flat out int shouldClip;
 
 void main()
 {
@@ -16,10 +17,13 @@ void main()
 	float tileSize = 0.5f;
 	float row = float(id/2);
 	float column = float(id%2);
-
+	shouldClip = 0;
     vec2 uv = vec2(0,0);
 	switch(texID)
 	{
+		case -1:
+			shouldClip = 1;
+			break;
 		case 0:
 			uv.x = column*tileSize;
 			uv.y = row*tileSize;

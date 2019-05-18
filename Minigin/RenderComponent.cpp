@@ -6,7 +6,7 @@
 
 //#include <glm/gtc/matrix_transform.hpp>
 
-dae::Renderer* dae::RenderComponent::s_pRenderer{};
+dae::Renderer* dae::RenderComponent::s_pRenderer{ &dae::Renderer::GetInstance() };
 
 dae::RenderComponent::RenderComponent()
 	:m_Texture{0,0,0}
@@ -22,9 +22,9 @@ void dae::RenderComponent::Draw()
 	if (m_IsSpriteBased)
 	{
 		glPushMatrix();
-		glTranslatef(m_pTransformComponent->GetPosition().x - m_DestRect.w / 2.0f*m_pTransformComponent->GetScale().x, m_pTransformComponent->GetPosition().y- m_DestRect.h/ 2.0f*m_pTransformComponent->GetScale().y, 0);
-		glScalef(m_pTransformComponent->GetScale().x, m_pTransformComponent->GetScale().y, 1.0f);
-		glTranslatef(GLfloat(-m_DestRect.x), GLfloat(-m_DestRect.y), 0);
+		//glTranslatef(m_pTransformComponent->GetPosition().x - m_DestRect.w / 2.0f*m_pTransformComponent->GetScale().x, m_pTransformComponent->GetPosition().y- m_DestRect.h/ 2.0f*m_pTransformComponent->GetScale().y, 0);
+		//glScalef(m_pTransformComponent->GetScale().x, m_pTransformComponent->GetScale().y, 1.0f);
+		//glTranslatef(GLfloat(-m_DestRect.x), GLfloat(-m_DestRect.y), 0);
 		s_pRenderer->RenderTexture(m_Texture, m_DestRect, m_SourceRect);
 		glPopMatrix();
 	}
@@ -62,7 +62,8 @@ void dae::RenderComponent::Draw()
 		glDrawElements(GL_TRIANGLES, m_IndexCount, GL_UNSIGNED_INT, (GLvoid*)0);
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
-		//glDisableVertexAttribArray(2);
+		glDisableVertexAttribArray(2);
+		glUseProgram(0);
 
 	}
 }

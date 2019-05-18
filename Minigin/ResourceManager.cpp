@@ -142,8 +142,9 @@ dae::Font* dae::ResourceManager::LoadFont(const std::string& file, unsigned int 
 }
 
 //http://www.opengl-tutorial.org/beginners-tutorials/tutorial-2-the-first-triangle/
-//this loading function was not written by me.
-GLuint dae::ResourceManager::LoadShaders(const char * vertex_file_path, const char * fragment_file_path)
+//this loading function was not FULLY written by me.
+//I added the optional geometry shader
+GLuint dae::ResourceManager::LoadShaders(const char * vertex_file_path, const char * fragment_file_path, const char * geometry_file_path)
 {
 
 	// Create the shaders
@@ -208,27 +209,89 @@ GLuint dae::ResourceManager::LoadShaders(const char * vertex_file_path, const ch
 		printf("%s\n", &FragmentShaderErrorMessage[0]);
 	}
 
-	// Link the program
-	printf("Linking program\n");
-	GLuint ProgramID = glCreateProgram();
-	glAttachShader(ProgramID, VertexShaderID);
-	glAttachShader(ProgramID, FragmentShaderID);
-	glLinkProgram(ProgramID);
 
-	// Check the program
-	glGetProgramiv(ProgramID, GL_LINK_STATUS, &Result);
-	glGetProgramiv(ProgramID, GL_INFO_LOG_LENGTH, &InfoLogLength);
-	if (InfoLogLength > 0) {
-		std::vector<char> ProgramErrorMessage(InfoLogLength + 1);
-		glGetProgramInfoLog(ProgramID, InfoLogLength, NULL, &ProgramErrorMessage[0]);
-		printf("%s\n", &ProgramErrorMessage[0]);
+	if (!geometry_file_path)
+	{
+		// Link the program
+		printf("Linking program\n");
+		GLuint ProgramID = glCreateProgram();
+		glAttachShader(ProgramID, VertexShaderID);
+		glAttachShader(ProgramID, FragmentShaderID);
+		glLinkProgram(ProgramID);
+
+		// Check the program
+		glGetProgramiv(ProgramID, GL_LINK_STATUS, &Result);
+		glGetProgramiv(ProgramID, GL_INFO_LOG_LENGTH, &InfoLogLength);
+		if (InfoLogLength > 0) {
+			std::vector<char> ProgramErrorMessage(InfoLogLength + 1);
+			glGetProgramInfoLog(ProgramID, InfoLogLength, NULL, &ProgramErrorMessage[0]);
+			printf("%s\n", &ProgramErrorMessage[0]);
+		}
+
+		glDetachShader(ProgramID, VertexShaderID);
+		glDetachShader(ProgramID, FragmentShaderID);
+
+		glDeleteShader(VertexShaderID);
+		glDeleteShader(FragmentShaderID);
+
+
+		return ProgramID;
+	}
+	else
+	{
+		GLuint GeometryShaderID = glCreateShader(GL_GEOMETRY_SHADER);
+
+		std::string GeometryShaderCode;
+		std::ifstream GeometryShaderStream(geometry_file_path, std::ios::in);
+		if (GeometryShaderStream.is_open()) {
+			std::stringstream sstr;
+			sstr << GeometryShaderStream.rdbuf();
+			GeometryShaderCode = sstr.str();
+			GeometryShaderStream.close();
+		}
+
+		// Compile Geometry Shader
+		printf("Compiling shader : %s\n", geometry_file_path);
+		char const * pGeometrySource = GeometryShaderCode.c_str();
+		glShaderSource(GeometryShaderID, 1, &pGeometrySource, NULL);
+		glCompileShader(GeometryShaderID);
+
+		// Check Vertex Shader
+		glGetShaderiv(GeometryShaderID, GL_COMPILE_STATUS, &Result);
+		glGetShaderiv(GeometryShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
+		if (InfoLogLength > 0) {
+			std::vector<char> GeometryShaderErrorMessage(InfoLogLength + 1);
+			glGetShaderInfoLog(GeometryShaderID, InfoLogLength, NULL, &GeometryShaderErrorMessage[0]);
+			printf("%s\n", &GeometryShaderErrorMessage[0]);
+		}
+
+
+		printf("Linking program\n");
+		GLuint ProgramID = glCreateProgram();
+		glAttachShader(ProgramID, VertexShaderID);
+		glAttachShader(ProgramID, FragmentShaderID);
+		glAttachShader(ProgramID, GeometryShaderID);
+		glLinkProgram(ProgramID);
+
+		// Check the program
+		glGetProgramiv(ProgramID, GL_LINK_STATUS, &Result);
+		glGetProgramiv(ProgramID, GL_INFO_LOG_LENGTH, &InfoLogLength);
+		if (InfoLogLength > 0) {
+			std::vector<char> ProgramErrorMessage(InfoLogLength + 1);
+			glGetProgramInfoLog(ProgramID, InfoLogLength, NULL, &ProgramErrorMessage[0]);
+			printf("%s\n", &ProgramErrorMessage[0]);
+		}
+
+		glDetachShader(ProgramID, VertexShaderID);
+		glDetachShader(ProgramID, FragmentShaderID);
+		glDetachShader(ProgramID, GeometryShaderID);
+
+		glDeleteShader(VertexShaderID);
+		glDeleteShader(FragmentShaderID);
+		glDeleteShader(GeometryShaderID);
+
+		return ProgramID;
+
 	}
 
-	glDetachShader(ProgramID, VertexShaderID);
-	glDetachShader(ProgramID, FragmentShaderID);
-
-	glDeleteShader(VertexShaderID);
-	glDeleteShader(FragmentShaderID);
-
-	return ProgramID;
 }
