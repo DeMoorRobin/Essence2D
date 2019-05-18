@@ -3,7 +3,8 @@
 struct Vertex
 {
 	GLfloat x, y, z;
-	GLfloat u, v;
+	GLint texID;
+	GLint id;
 };
 namespace dae
 {
@@ -19,6 +20,9 @@ namespace dae
 		std::string m_TextureFile;
 		int m_Rows, m_Columns;
 		GLuint m_VertexID, m_IndexID;
+
+		std::vector<Vertex> m_Vertices{};
+		std::vector<GLuint> m_Indices{};
 
 	};
 
