@@ -30,41 +30,47 @@ void dae::GridRenderComponent::Initialize()
 		for (GLuint j{}; j < width; ++j)
 		{
 			Vertex a{};
-			a.x = size * j;
-			a.y = size * i;
+			a.x = size*j+size/2.0f;
+			a.y = size*i+size/2.0f;
 			a.z = 0;
-			a.texID = 0;
 			a.id = 2;
 			m_Vertices.push_back(a);
-
-			a.x = size * (j + 1);
-			a.y = size * i;
-			a.z = 0;
-			a.texID = 1;
-			a.id = 2;
-			m_Vertices.push_back(a);
-
-			a.x = size * j;
-			a.y = size * (i + 1);
-			a.z = 0;
-			a.texID = 2;
-			a.id = 2;
-			m_Vertices.push_back(a);
-
-			a.x = size * (j + 1);
-			a.y = size * (i + 1);
-			a.z = 0;
-			a.texID = 3;
-			a.id = 2;
-			m_Vertices.push_back(a);
-
-			m_Indices.push_back(i * width * 4 + j * 4);      //0
-			m_Indices.push_back(i * width * 4 + j * 4 + 2);   //2
-			m_Indices.push_back(i * width * 4 + j * 4 + 1);   //1
-
-			m_Indices.push_back(i * width * 4 + j * 4 + 2); //2
-			m_Indices.push_back(i * width * 4 + j * 4 + 3); //3
-			m_Indices.push_back(i * width * 4 + j * 4 + 1); //1
+			//Vertex a{};
+			//a.x = size * j;
+			//a.y = size * i;
+			//a.z = 0;
+			////a.texID = 0;
+			//a.id = 2;
+			//m_Vertices.push_back(a);
+			//
+			//a.x = size * (j + 1);
+			//a.y = size * i;
+			//a.z = 0;
+			////a.texID = 1;
+			//a.id = 2;
+			//m_Vertices.push_back(a);
+			//
+			//a.x = size * j;
+			//a.y = size * (i + 1);
+			//a.z = 0;
+			////a.texID = 2;
+			//a.id = 2;
+			//m_Vertices.push_back(a);
+			//
+			//a.x = size * (j + 1);
+			//a.y = size * (i + 1);
+			//a.z = 0;
+			////a.texID = 3;
+			//a.id = 2;
+			//m_Vertices.push_back(a);
+			//
+			//m_Indices.push_back(i * width * 4 + j * 4);      //0
+			//m_Indices.push_back(i * width * 4 + j * 4 + 2);   //2
+			//m_Indices.push_back(i * width * 4 + j * 4 + 1);   //1
+			//
+			//m_Indices.push_back(i * width * 4 + j * 4 + 2); //2
+			//m_Indices.push_back(i * width * 4 + j * 4 + 3); //3
+			//m_Indices.push_back(i * width * 4 + j * 4 + 1); //1
 		}
 	}
 
@@ -73,12 +79,12 @@ void dae::GridRenderComponent::Initialize()
 	glBindBuffer(GL_ARRAY_BUFFER, m_VertexID);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * m_Vertices.size(), m_Vertices.data(), GL_STATIC_DRAW);
 	//index buffer
-	glGenBuffers(1, &m_IndexID);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexID);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * m_Indices.size(), m_Indices.data(), GL_STATIC_DRAW);
+	//glGenBuffers(1, &m_IndexID);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexID);
+	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * m_Indices.size(), m_Indices.data(), GL_STATIC_DRAW);
 
 	m_pGameObject->GetRenderComponent()->SetBuffers(m_VertexID, m_IndexID);
-	auto m = GLuint(m_Columns*m_Rows * 6);
+	auto m = GLuint(m_Columns*m_Rows);
 	m_pGameObject->GetRenderComponent()->SetIndexCount(m);
 	m_pGameObject->GetRenderComponent()->SetSpriteBased(false);
 

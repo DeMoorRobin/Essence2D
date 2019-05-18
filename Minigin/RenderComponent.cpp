@@ -49,21 +49,21 @@ void dae::RenderComponent::Draw()
 	
 		e = glGetError();
 		glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferID);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBufferID);
+		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBufferID);
 		e = glGetError();
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 5, (GLvoid*)0);
-		glVertexAttribIPointer(1, 1, GL_INT, sizeof(float) * 5, (GLvoid*)12);
-		glVertexAttribIPointer(2, 1, GL_INT, sizeof(float) * 5, (GLvoid*)16);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 4, (GLvoid*)0);
+		glVertexAttribIPointer(1, 1, GL_INT, sizeof(float) * 4, (GLvoid*)12);
+		//glVertexAttribIPointer(2, 1, GL_INT, sizeof(float) * 5, (GLvoid*)16);
 		e = glGetError();
 		
 
 		glActiveTexture(GL_TEXTURE0);
-		
-		glDrawElements(GL_TRIANGLES, m_IndexCount, GL_UNSIGNED_INT, (GLvoid*)0);
+		glDrawArrays(GL_POINTS, 0, m_IndexCount);
+		//glDrawElements(GL_POINTS, m_IndexCount, GL_UNSIGNED_INT, (GLvoid*)0);
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
-		glDisableVertexAttribArray(2);
-		glUseProgram(0);
+		//glDisableVertexAttribArray(2);
+
 
 	}
 }

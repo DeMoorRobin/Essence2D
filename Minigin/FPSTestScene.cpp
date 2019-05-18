@@ -82,7 +82,7 @@ void FPSTestScene::Initialize()
 	auto* render = dae::Renderer::GetInstance().RequestRenderComponent();
 	grid->AddRenderComponent(render);
 	grid->AddComponent(new dae::GridRenderComponent{"tileset.png",35,64});
-	render->SetProgram(dae::ResourceManager::GetInstance().LoadShaders("vertexShader.glsl", "pixelShader.glsl"));
+	render->SetProgram(dae::ResourceManager::GetInstance().LoadShaders("vertexShader.glsl", "pixelShader.glsl","GeometryShader.glsl"));
 	grid->GetTransform()->Translate(0, 0, -1);
 	
 	AddChild(grid);

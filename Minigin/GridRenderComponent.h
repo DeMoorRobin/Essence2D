@@ -3,7 +3,7 @@
 struct Vertex
 {
 	GLfloat x, y, z;
-	GLint texID;
+	//GLint texID;
 	GLint id;
 };
 namespace dae
