@@ -12,18 +12,41 @@ dae::RenderComponent::RenderComponent()
 	:m_Texture{0,0,0}
 	,m_SourceRect{}
 	,m_DestRect{}
+	,m_IsSpriteBased{true}
 {
 }
 
 
 void dae::RenderComponent::Draw()
 {
-	glPushMatrix();
-	glTranslatef(m_TransformComponent.GetPosition().x - m_DestRect.w / 2.0f*m_TransformComponent.GetScale().x, m_TransformComponent.GetPosition().y- m_DestRect.h/ 2.0f*m_TransformComponent.GetScale().y, 0);
-	glScalef(m_TransformComponent.GetScale().x, m_TransformComponent.GetScale().y, 1.0f);
-	glTranslatef(GLfloat(-m_DestRect.x), GLfloat(-m_DestRect.y), 0);
-	s_pRenderer->RenderTexture(m_Texture, m_DestRect, m_SourceRect);
-	glPopMatrix();
+	if (m_IsSpriteBased)
+	{
+		glPushMatrix();
+		glTranslatef(m_pTransformComponent->GetPosition().x - m_DestRect.w / 2.0f*m_pTransformComponent->GetScale().x, m_pTransformComponent->GetPosition().y- m_DestRect.h/ 2.0f*m_pTransformComponent->GetScale().y, 0);
+		glScalef(m_pTransformComponent->GetScale().x, m_pTransformComponent->GetScale().y, 1.0f);
+		glTranslatef(GLfloat(-m_DestRect.x), GLfloat(-m_DestRect.y), 0);
+		s_pRenderer->RenderTexture(m_Texture, m_DestRect, m_SourceRect);
+		glPopMatrix();
+	}
+	else
+	{
+		glUseProgram(m_ProgramID);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, m_Texture.GetID());
+		auto loc = glGetUniformLocation(m_ProgramID, "baseImage");
+		glUniform1f(loc, 0);
+		glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 5, (GLvoid*)0);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 5, (GLvoid*)12);
+		glActiveTexture(GL_TEXTURE0);
+		glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferID);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBufferID);
+		glDrawElements(GL_TRIANGLES, m_IndexCount, GL_UNSIGNED_INT, (GLvoid*)0);
+		glDisableVertexAttribArray(0);
+		glDisableVertexAttribArray(1);
+
+	}
 }
 
 //const SDL_Rect& dae::RenderComponent::GetImageDimensions() 
@@ -46,7 +69,7 @@ void dae::RenderComponent::SetSourceRect(const SDL_Rect& rect)
 
 void dae::RenderComponent::SetTransform(TransformComponent* pTransform)
 {
-	m_TransformComponent = *pTransform;
+	m_pTransformComponent = pTransform;
 }
 
 void dae::RenderComponent::SetStringTexture(const std::string & , TTF_Font * )

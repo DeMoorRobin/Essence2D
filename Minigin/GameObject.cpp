@@ -30,6 +30,7 @@ void dae::GameObject::AddComponent(BaseComponent* pComp)
 	}
 	m_pComponents.push_back(pComp);
 	pComp->SetGameObject(this);
+	pComp->Initialize();
 }
 
 void dae::GameObject::BaseUpdate()
@@ -41,14 +42,7 @@ void dae::GameObject::BaseUpdate()
 }
 void dae::GameObject::BaseDraw()
 {
-	if (m_pRenderComponent)
-	{
-		if (m_pTransform->HasChanged())
-			m_pRenderComponent->SetTransform(m_pTransform);
-
-		//m_pRenderComponent->Draw();
-	}
-	m_pTransform->ResetChanged();
+		
 }
 
 void dae::GameObject::AddRenderComponent(RenderComponent* pRenderComponent)

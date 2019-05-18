@@ -85,6 +85,9 @@
     <ClInclude Include="RenderComponent.h">
       <Filter>Component</Filter>
     </ClInclude>
+    <ClInclude Include="GridRenderComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -139,6 +142,9 @@
       <Filter>Input</Filter>
     </ClCompile>
     <ClCompile Include="RenderComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="GridRenderComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
   </ItemGroup>

@@ -200,6 +200,7 @@ xcopy "$(SolutionDir)3rdParty\glew\bin\Release\x64\glew32.dll" "$(OutputPath)" /
     <ClInclude Include="Font.h" />
     <ClInclude Include="FPSTestScene.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GridRenderComponent.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Minigin.h" />
@@ -221,6 +222,7 @@ xcopy "$(SolutionDir)3rdParty\glew\bin\Release\x64\glew32.dll" "$(OutputPath)" /
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FPSTestScene.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GridRenderComponent.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="Main.cpp" />

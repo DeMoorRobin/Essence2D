@@ -33,7 +33,7 @@ void dae::Scene::BaseDraw()
 	//{
 	//	pObj->BaseDraw();
 	//}
-	//dae::Renderer::GetInstance().Draw();
+	dae::Renderer::GetInstance().Draw();
 	Draw();
 }
 

@@ -36,9 +36,6 @@ namespace dae
 
 		void SetPivotOffset(float x, float y);
 		void SetPivotOffset(const glm::vec2& offset);
-		
-		bool HasChanged() const{ return m_HasChanged; };
-		void ResetChanged() { m_HasChanged = false; };
 	protected:
 		void Initialize() override;
 		void Update() override;
@@ -48,7 +45,6 @@ namespace dae
 		glm::vec3 m_Position;
 		glm::vec2 m_Scale;
 		glm::vec2 m_PivotOffset;
-		bool m_HasChanged;
 	};
 }
 

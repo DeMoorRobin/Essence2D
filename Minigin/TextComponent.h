@@ -10,7 +10,6 @@ namespace dae
 	public:
 		TextComponent(const std::string& text, const std::string& fontPath, unsigned int fontSize);
 		~TextComponent();
-
 		void SetText(const std::string& text);
 
 	protected:

@@ -14,13 +14,6 @@ namespace dae
 	{
 	public:
 		RenderComponent();
-		//~RenderComponent();
-
-		//RenderComponent(const RenderComponent&) = delete;
-		//RenderComponent(RenderComponent &&) = delete;
-		//RenderComponent &operator=(const RenderComponent &) = delete;
-		//RenderComponent &operator=(const RenderComponent &&) = delete;
-
 
 		//const SDL_Rect& GetImageDimensions();
 
@@ -30,15 +23,23 @@ namespace dae
 		void SetSourceRect(const SDL_Rect& rect);
 		void SetTransform(TransformComponent* pTransform);
 		void SetStringTexture(const std::string& text, TTF_Font* pFont);
-		int GetDepth() { return int(m_TransformComponent.GetPosition().z); };
+		void SetSpriteBased(bool enable) { m_IsSpriteBased = enable; };
+		int GetDepth() { return int(m_pTransformComponent->GetPosition().z); };
+
+		void SetProgram(GLuint id) { m_ProgramID = id; };
+		void SetBuffers(GLuint vertexID, GLuint indexID) { m_VertexBufferID = vertexID; m_IndexBufferID = indexID; };
+		void SetIndexCount(GLuint count) { m_IndexCount = count; };
 
 	private:
-		TransformComponent m_TransformComponent;
+		TransformComponent* m_pTransformComponent;
 		SDL_Rect m_DestRect;
 		Texture2D m_Texture;
 		SDL_Rect m_SourceRect;
 		static Renderer* s_pRenderer;
-		
+
+		bool m_IsSpriteBased;
+		GLuint m_ProgramID,m_VertexBufferID,m_IndexBufferID;
+		GLuint m_IndexCount;
 
 	};
 
