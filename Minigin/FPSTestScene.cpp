@@ -11,6 +11,7 @@
 #include "Texture2D.h"
 #include "GL/glew.h"
 #include "GridRenderComponent.h"
+#include "ImageComponent.h"
 
 FPSTestScene::FPSTestScene()
 {
@@ -50,15 +51,30 @@ void FPSTestScene::Draw()
 
 void FPSTestScene::Initialize()
 {
-	//dae::GameObject* fpsObject = new dae::GameObject();
-	//AddChild(fpsObject);
+	
+
+
+	dae::GameObject* fpsObject = new dae::GameObject();
+	AddChild(fpsObject);
 	//std::cout << sizeof(dae::Texture2D) << std::endl;
 	//std::cout << sizeof(dae::RenderComponent) << std::endl;
 	////
 
-	//dae::RenderComponent* renderComp = dae::Renderer::GetInstance().RequestRenderComponent();
-	//fpsObject->AddRenderComponent(renderComp);
+	dae::RenderComponent* renderComp = dae::Renderer::GetInstance().RequestRenderComponent();
+	fpsObject->AddRenderComponent(renderComp);
 	//
+	
+	auto* image = new dae::ImageComponent{ "SpriteSheet.png",100.0f,100.0f ,glm::vec4{0, (224.0f-32.0f)/224.0f,32.0f / 448.0f,32.0f / 224.0f} };
+	fpsObject->AddComponent(image);
+
+	fpsObject->GetTransform()->Translate(320.0f, 240.0f, 0.3f);
+
+	auto* grid = new dae::GameObject{};
+	auto* render = dae::Renderer::GetInstance().RequestRenderComponent();
+	grid->AddRenderComponent(render);
+	grid->AddComponent(new dae::GridRenderComponent{ "tileset.png",35,64 });
+	AddChild(grid);
+
 	//renderComp->SetTexture(dae::ResourceManager::GetInstance().LoadTexture("background.jpg"));
 	//fpsObject->GetTransform()->Translate(320.0f, 240.0f);
 	//fpsObject->GetTransform()->SetScale(0.5f, 1.0f);
@@ -76,16 +92,7 @@ void FPSTestScene::Initialize()
 	//player->GetTransform()->SetPosition(30.0f, 30.0f, 30.0f);
 	//AddChild(player);
 
-
-
-	auto* grid = new dae::GameObject{};
-	auto* render = dae::Renderer::GetInstance().RequestRenderComponent();
-	grid->AddRenderComponent(render);
-	grid->AddComponent(new dae::GridRenderComponent{"tileset.png",35,64});
-	render->SetProgram(dae::ResourceManager::GetInstance().LoadShaders("vertexShader.glsl", "pixelShader.glsl","GeometryShader.glsl"));
-	grid->GetTransform()->Translate(0, 0, -1);
 	
-	AddChild(grid);
 
 	dae::InputManager::GetInstance().Assignbutton("A", dae::ControllerButton::ButtonA);
 	dae::InputManager::GetInstance().Assignbutton("BDown", dae::ControllerButton::ButtonB);

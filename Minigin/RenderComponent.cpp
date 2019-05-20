@@ -3,6 +3,7 @@
 #include "Renderer.h"
 #include "Texture2D.h"
 #include "TransformComponent.h"
+#include "Time.h"
 
 //#include <glm/gtc/matrix_transform.hpp>
 
@@ -10,62 +11,27 @@ dae::Renderer* dae::RenderComponent::s_pRenderer{ &dae::Renderer::GetInstance() 
 
 dae::RenderComponent::RenderComponent()
 	:m_Texture{0,0,0}
-	,m_SourceRect{}
-	,m_DestRect{}
-	,m_IsSpriteBased{true}
+	,m_VertexBufferID{}
+	,m_IndexBufferID{}
 {
 }
 
 
 void dae::RenderComponent::Draw()
 {
-	if (m_IsSpriteBased)
+	switch(m_RenderType)
 	{
-		glPushMatrix();
-		//glTranslatef(m_pTransformComponent->GetPosition().x - m_DestRect.w / 2.0f*m_pTransformComponent->GetScale().x, m_pTransformComponent->GetPosition().y- m_DestRect.h/ 2.0f*m_pTransformComponent->GetScale().y, 0);
-		//glScalef(m_pTransformComponent->GetScale().x, m_pTransformComponent->GetScale().y, 1.0f);
-		//glTranslatef(GLfloat(-m_DestRect.x), GLfloat(-m_DestRect.y), 0);
-		s_pRenderer->RenderTexture(m_Texture, m_DestRect, m_SourceRect);
-		glPopMatrix();
+	case RenderType::SPRITE :
+		DrawSprite();		
+		break;
+	case RenderType::GRID :
+		//if(Time::GetInstance().GetFrameCounter() < 80)
+		DrawGrid();
+		break;		
 	}
-	else
-	{
-		auto e = glGetError();
-		if (e != GL_NO_ERROR) std::cout << e << std::endl;
-
-		glUseProgram(m_ProgramID);
-		e = glGetError();
-
-		glActiveTexture(GL_TEXTURE0);
-		e = glGetError();
-		glBindTexture(GL_TEXTURE_2D, m_Texture.GetID());
-		e = glGetError();
-		auto loc = glGetUniformLocation(m_ProgramID, "baseImage");
-		glUniform1i(loc, 0);
-		e = glGetError();
-		glEnableVertexAttribArray(0);
-		glEnableVertexAttribArray(1);
-		//glEnableVertexAttribArray(2);
+	//glInvalidateBufferData(m_VertexBufferID);
+	//glInvalidateBufferData(m_IndexBufferID);
 	
-		e = glGetError();
-		glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferID);
-		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBufferID);
-		e = glGetError();
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 4, (GLvoid*)0);
-		glVertexAttribIPointer(1, 1, GL_INT, sizeof(float) * 4, (GLvoid*)12);
-		//glVertexAttribIPointer(2, 1, GL_INT, sizeof(float) * 5, (GLvoid*)16);
-		e = glGetError();
-		
-
-		glActiveTexture(GL_TEXTURE0);
-		glDrawArrays(GL_POINTS, 0, m_IndexCount);
-		//glDrawElements(GL_POINTS, m_IndexCount, GL_UNSIGNED_INT, (GLvoid*)0);
-		glDisableVertexAttribArray(0);
-		glDisableVertexAttribArray(1);
-		//glDisableVertexAttribArray(2);
-
-
-	}
 }
 
 //const SDL_Rect& dae::RenderComponent::GetImageDimensions() 
@@ -75,16 +41,7 @@ void dae::RenderComponent::Draw()
 //	//return m_pTexture->GetImageDimensions();
 //};
 
-void dae::RenderComponent::SetDestRectDefaultSize(int xSize, int ySize)
-{
-	m_DestRect.w = xSize;
-	m_DestRect.h = ySize;
-}
 
-void dae::RenderComponent::SetSourceRect(const SDL_Rect& rect)
-{
-	m_SourceRect = rect;
-}
 
 void dae::RenderComponent::SetTransform(TransformComponent* pTransform)
 {
@@ -98,6 +55,74 @@ void dae::RenderComponent::SetStringTexture(const std::string & , TTF_Font * )
 void dae::RenderComponent::SetTexture(dae::Texture2D texture)
 {
 	m_Texture = texture;
-	m_DestRect.w = int(texture.GetWidth());
-	m_DestRect.h = int(texture.GetHeight());
+}
+
+
+void dae::RenderComponent::DrawSprite()
+{
+	glUseProgram(m_ProgramID);
+	auto e = glGetError();
+	if (e != GL_NO_ERROR) std::cout << e << std::endl;
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, m_Texture.GetID());
+
+	e = glGetError();
+
+	auto loc = glGetUniformLocation(m_ProgramID, "baseImage");
+	glUniform1i(loc, 0);
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
+	e = glGetError();
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferID);
+	e = glGetError();
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 9, (GLvoid*)0);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 9, (GLvoid*)12);
+	glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 9, (GLvoid*)20);
+	e = glGetError();
+	glActiveTexture(GL_TEXTURE0);
+	glDrawArrays(GL_POINTS, 0, 1);
+	e = glGetError();
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
+}
+
+void dae::RenderComponent::DrawGrid()
+{
+	auto e = glGetError();
+	if (e != GL_NO_ERROR) std::cout << e << std::endl;
+
+	glUseProgram(m_ProgramID);
+	e = glGetError();
+
+	glActiveTexture(GL_TEXTURE0);
+	e = glGetError();
+	glBindTexture(GL_TEXTURE_2D, m_Texture.GetID());
+	e = glGetError();
+	auto loc = glGetUniformLocation(m_ProgramID, "baseImage");
+	glUniform1i(loc, 0);
+	e = glGetError();
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	//glEnableVertexAttribArray(2);
+
+	e = glGetError();
+	glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferID);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBufferID);
+	e = glGetError();
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 4, (GLvoid*)0);
+	glVertexAttribIPointer(1, 1, GL_INT, sizeof(float) * 4, (GLvoid*)12);
+	//glVertexAttribIPointer(2, 1, GL_INT, sizeof(float) * 5, (GLvoid*)16);
+	e = glGetError();
+
+
+	glActiveTexture(GL_TEXTURE0);
+	glDrawArrays(GL_POINTS, 0, m_IndexCount);
+	//glDrawElements(GL_POINTS, m_IndexCount, GL_UNSIGNED_INT, (GLvoid*)0);
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+	//glDisableVertexAttribArray(2);
 }

@@ -35,49 +35,13 @@ void dae::GridRenderComponent::Initialize()
 			a.z = 0;
 			a.id = 2;
 			m_Vertices.push_back(a);
-			//Vertex a{};
-			//a.x = size * j;
-			//a.y = size * i;
-			//a.z = 0;
-			////a.texID = 0;
-			//a.id = 2;
-			//m_Vertices.push_back(a);
-			//
-			//a.x = size * (j + 1);
-			//a.y = size * i;
-			//a.z = 0;
-			////a.texID = 1;
-			//a.id = 2;
-			//m_Vertices.push_back(a);
-			//
-			//a.x = size * j;
-			//a.y = size * (i + 1);
-			//a.z = 0;
-			////a.texID = 2;
-			//a.id = 2;
-			//m_Vertices.push_back(a);
-			//
-			//a.x = size * (j + 1);
-			//a.y = size * (i + 1);
-			//a.z = 0;
-			////a.texID = 3;
-			//a.id = 2;
-			//m_Vertices.push_back(a);
-			//
-			//m_Indices.push_back(i * width * 4 + j * 4);      //0
-			//m_Indices.push_back(i * width * 4 + j * 4 + 2);   //2
-			//m_Indices.push_back(i * width * 4 + j * 4 + 1);   //1
-			//
-			//m_Indices.push_back(i * width * 4 + j * 4 + 2); //2
-			//m_Indices.push_back(i * width * 4 + j * 4 + 3); //3
-			//m_Indices.push_back(i * width * 4 + j * 4 + 1); //1
 		}
 	}
 
 	//vertexBuffer
 	glGenBuffers(1, &m_VertexID);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VertexID);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * m_Vertices.size(), m_Vertices.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * m_Vertices.size(), m_Vertices.data(), GL_DYNAMIC_DRAW);
 	//index buffer
 	//glGenBuffers(1, &m_IndexID);
 	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexID);
@@ -86,17 +50,23 @@ void dae::GridRenderComponent::Initialize()
 	m_pGameObject->GetRenderComponent()->SetBuffers(m_VertexID, m_IndexID);
 	auto m = GLuint(m_Columns*m_Rows);
 	m_pGameObject->GetRenderComponent()->SetIndexCount(m);
-	m_pGameObject->GetRenderComponent()->SetSpriteBased(false);
-
+	m_pGameObject->GetRenderComponent()->SetProgram(dae::ResourceManager::GetInstance().LoadShaders("tileVS.glsl", "tilePS.glsl", "tileGS.glsl"));
+	m_pGameObject->GetRenderComponent()->SetRenderType(dae::RenderType::GRID);
 	auto t = dae::ResourceManager::GetInstance().LoadTexture(m_TextureFile);
 	m_pGameObject->GetRenderComponent()->SetTexture(t);
 }
 
 void dae::GridRenderComponent::Update()
 {
+	auto ind{ Time::GetInstance().GetFrameCounter() % (m_Rows*m_Columns) };
+	m_Vertices[ind].id = rand() % 4;
 	//vertexBuffer
-	glGenBuffers(1, &m_VertexID);
+	//glGenBuffers(1, &m_VertexID);
+	//glBindBuffer(GL_ARRAY_BUFFER, m_VertexID);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * m_Vertices.size(), m_Vertices.data(), GL_DYNAMIC_DRAW);
+	
 	glBindBuffer(GL_ARRAY_BUFFER, m_VertexID);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * m_Vertices.size(), m_Vertices.data(), GL_STATIC_DRAW);
-	m_pGameObject->GetRenderComponent()->SetBuffers(m_VertexID, m_IndexID);
+	glBufferSubData(GL_ARRAY_BUFFER, ind * sizeof(Vertex) + 12, 4, &m_Vertices[ind].id);
+
+	//m_pGameObject->GetRenderComponent()->SetBuffers(m_VertexID, m_IndexID);
 }

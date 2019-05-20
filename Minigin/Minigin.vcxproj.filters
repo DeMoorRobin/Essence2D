@@ -88,6 +88,9 @@
     <ClInclude Include="GridRenderComponent.h">
       <Filter>Component</Filter>
     </ClInclude>
+    <ClInclude Include="ImageComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -147,17 +150,31 @@
     <ClCompile Include="GridRenderComponent.cpp">
       <Filter>Component</Filter>
     </ClCompile>
+    <ClCompile Include="ImageComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
-    <None Include="vertexShader.glsl">
+    <None Include="TileGS.glsl">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="pixelShader.glsl">
+    <None Include="TilePS.glsl">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="GeometryShader.glsl">
+    <None Include="TileVS.glsl">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="SpriteVS.glsl">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="SpriteGS.glsl">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="SpritePS.glsl">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

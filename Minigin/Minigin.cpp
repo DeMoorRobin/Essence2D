@@ -74,7 +74,9 @@ void dae::Minigin::Initialize()
 	glGenVertexArrays(1, &vertexArrayID);
 	glBindVertexArray(vertexArrayID);
 	
-	
+	glDisable(GL_DEPTH_TEST);
+	glDepthMask(false);
+	glDepthFunc(GL_NEVER);
 	
 }
 

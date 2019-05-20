@@ -201,6 +201,7 @@ xcopy "$(SolutionDir)3rdParty\glew\bin\Release\x64\glew32.dll" "$(OutputPath)" /
     <ClInclude Include="FPSTestScene.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GridRenderComponent.h" />
+    <ClInclude Include="ImageComponent.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="Minigin.h" />
@@ -223,6 +224,7 @@ xcopy "$(SolutionDir)3rdParty\glew\bin\Release\x64\glew32.dll" "$(OutputPath)" /
     <ClCompile Include="FPSTestScene.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GridRenderComponent.cpp" />
+    <ClCompile Include="ImageComponent.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -246,9 +248,14 @@ xcopy "$(SolutionDir)3rdParty\glew\bin\Release\x64\glew32.dll" "$(OutputPath)" /
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
-    <None Include="GeometryShader.glsl" />
-    <None Include="pixelShader.glsl" />
-    <None Include="vertexShader.glsl" />
+    <None Include="SpriteVS.glsl" />
+    <None Include="TileGS.glsl" />
+    <None Include="TilePS.glsl" />
+    <None Include="TileVS.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="SpriteGS.glsl" />
+    <Text Include="SpritePS.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -19,7 +19,7 @@ namespace dae
 	private:
 		std::string m_TextureFile;
 		int m_Rows, m_Columns;
-		GLuint m_VertexID, m_IndexID;
+		GLuint m_VertexID, m_IndexID, m_ProgramID;
 
 		std::vector<Vertex> m_Vertices{};
 		std::vector<GLuint> m_Indices{};

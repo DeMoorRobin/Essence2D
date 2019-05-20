@@ -8,6 +8,10 @@ struct SDL_Texture;
 
 namespace dae
 {
+	enum class RenderType
+	{
+		SPRITE,GRID
+	};
 	class Renderer;
 	class TransformComponent;
 	class RenderComponent
@@ -19,27 +23,25 @@ namespace dae
 
 		void Draw();
 		void SetTexture(Texture2D texture);
-		void SetDestRectDefaultSize(int xSize, int ySize);
-		void SetSourceRect(const SDL_Rect& rect);
 		void SetTransform(TransformComponent* pTransform);
 		void SetStringTexture(const std::string& text, TTF_Font* pFont);
-		void SetSpriteBased(bool enable) { m_IsSpriteBased = enable; };
-		int GetDepth() { return int(m_pTransformComponent->GetPosition().z); };
+		float GetDepth() { return m_pTransformComponent->GetPosition().z; };
 
 		void SetProgram(GLuint id) { m_ProgramID = id; };
 		void SetBuffers(GLuint vertexID, GLuint indexID) { m_VertexBufferID = vertexID; m_IndexBufferID = indexID; };
 		void SetIndexCount(GLuint count) { m_IndexCount = count; };
-
+		void SetRenderType(RenderType type) { m_RenderType = type; };
 	private:
 		TransformComponent* m_pTransformComponent;
-		SDL_Rect m_DestRect;
 		Texture2D m_Texture;
-		SDL_Rect m_SourceRect;
 		static Renderer* s_pRenderer;
 
-		bool m_IsSpriteBased;
 		GLuint m_ProgramID,m_VertexBufferID,m_IndexBufferID;
 		GLuint m_IndexCount;
+		RenderType m_RenderType;
+
+		void DrawGrid();
+		void DrawSprite();
 
 	};
 
