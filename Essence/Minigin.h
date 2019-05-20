@@ -11,7 +11,7 @@ namespace dae
 		SDL_Window* window{};
 		SDL_GLContext m_pContext;
 	public:
-		void Initialize();
+		SceneManager* Initialize();
 		void LoadGame() const;
 		void Cleanup();
 		void Run();

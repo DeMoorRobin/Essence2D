@@ -17,7 +17,7 @@ bool dae::InputManager::ProcessInput()
 
 		// Simply get the state of the controllver from XInput.
 		dwResult = XInputGetState(i, &m_State);
-		std::for_each(m_ButtonStates.begin(), m_ButtonStates.end(), [this](std::pair<ControllerButton, bool> action)
+		std::for_each(m_ButtonStates.begin(), m_ButtonStates.end(), [this](std::pair<Button, bool> action)
 		{
 			if (IsPressed(action.first))m_ButtonStates[action.first] = true;
 			else m_ButtonStates[action.first] = false; 
@@ -40,12 +40,12 @@ bool dae::InputManager::ProcessInput()
 	return true;
 }
 
-bool dae::InputManager::IsPressed(ControllerButton button) const
+bool dae::InputManager::IsPressed(Button button) const
 {
 	if (m_State.Gamepad.wButtons & WORD(button)) return true;
 	else return false;
 }
-void dae::InputManager::Assignbutton(const std::string& actionName, ControllerButton button)
+void dae::InputManager::Assignbutton(const std::string& actionName, Button button)
 {
 	m_ButtonNames[actionName] = button;
 }

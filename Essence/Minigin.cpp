@@ -9,11 +9,10 @@
 #include <SDL.h>
 #include "GameObject.h"
 #include "Scene.h"
-#include "FPSTestScene.h"
 #include "Time.h"
 
 
-void dae::Minigin::Initialize()
+dae::SceneManager* dae::Minigin::Initialize()
 {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) 
 	{
@@ -45,7 +44,7 @@ void dae::Minigin::Initialize()
 	if (m_pContext == nullptr)
 	{
 		std::cerr << "Core::Initialize( ), error when calling SDL_GL_CreateContext: " << SDL_GetError() << std::endl;
-		return;
+		return nullptr;
 	}
 	
 	//SDL_GL_MakeCurrent(window, m_pContext);
@@ -68,8 +67,6 @@ void dae::Minigin::Initialize()
 	// The viewport is the rectangular region of the window where the image is drawn.
 	glViewport(0, 0, 640, 480);
 
-
-	
 	GLuint vertexArrayID{};
 	glGenVertexArrays(1, &vertexArrayID);
 	glBindVertexArray(vertexArrayID);
@@ -77,7 +74,9 @@ void dae::Minigin::Initialize()
 	glDisable(GL_DEPTH_TEST);
 	glDepthMask(false);
 	glDepthFunc(GL_NEVER);
-	
+
+	ResourceManager::GetInstance().Init("../Data/");
+	return m_pSceneManager;
 }
 
 /**
@@ -88,8 +87,8 @@ void dae::Minigin::LoadGame() const
 	//I let the user create Objects that inherit from Scene.
 	//This allows the user to add member functions and variables
 	//Scenes are added to the SceneManager which then has ownership and thus manages the deletion as well
-	Scene* scene = new FPSTestScene{};
-	m_pSceneManager->AddScene(scene);
+	//Scene* scene = new FPSTestScene{};
+	//m_pSceneManager->AddScene(scene);
 
 	//auto go = std::make_shared<GameObject>();
 	//go->SetTexture("background.jpg");
@@ -120,12 +119,10 @@ void dae::Minigin::Cleanup()
 
 void dae::Minigin::Run()
 {
-	Initialize();
-
 	// tell the resource manager where he can find the game data
-	ResourceManager::GetInstance().Init("../Data/");
+	
 
-	LoadGame();
+	//LoadGame();
 
 	{
 		auto t = std::chrono::high_resolution_clock::now();

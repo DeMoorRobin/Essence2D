@@ -13,6 +13,10 @@ namespace dae
 	public:
 		GridRenderComponent(const std::string& textureFile, int rows, int columns);
 		~GridRenderComponent();
+
+		void SetTileId(GLuint index, GLuint id, bool checkSurroundings = false);
+
+
 	protected:
 		void Initialize() override;
 		void Update() override;

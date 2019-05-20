@@ -14,7 +14,6 @@ dae::Texture2D::Texture2D()
 	, m_Height{}
 	, m_ID{}
 {
-
 }
 
 dae::Texture2D::~Texture2D()

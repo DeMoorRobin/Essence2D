@@ -19,7 +19,7 @@ void dae::ImageComponent::Initialize()
 {
 	m_pGameObject->GetRenderComponent()->SetTexture( dae::ResourceManager::GetInstance().LoadTexture(m_TextureFile));
 	m_pGameObject->GetRenderComponent()->SetRenderType(dae::RenderType::SPRITE);
-	m_pGameObject->GetRenderComponent()->SetProgram(dae::ResourceManager::GetInstance().LoadShaders("spriteVS.glsl", "spritePS.glsl", "spriteGS.glsl"));
+	m_pGameObject->GetRenderComponent()->SetProgram(dae::ResourceManager::GetInstance().LoadShaders("../Essence/spriteVS.glsl", "../Essence/spritePS.glsl", "../Essence/spriteGS.glsl"));
 
 	std::vector<GLfloat> center{};
 	center.push_back(m_pGameObject->GetTransform()->GetPosition().x);

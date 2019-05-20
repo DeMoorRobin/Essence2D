@@ -20,14 +20,14 @@ vec4 ToNDC(vec4 pos)
 
 void main() 
 {    
-	float halfSize = 5.0f;
+	float halfSize = 2.5f;
 	float row = float(gs_in[0].id / 2);
 	float column = float(gs_in[0].id % 2);
 	//float row = 0;
 	//float column = 0;
 	float tileTexSize = 0.5f;
 
-	if(gs_in[0].id != -1)
+	if(gs_in[0].id != 999)
 	{
 		//gl_Position = gl_in[0].gl_Position + vec4(-halfSize,-halfSize,0,0);
 		gl_Position = ToNDC(gl_in[0].gl_Position + vec4(-halfSize,-halfSize,0,0));

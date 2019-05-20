@@ -4,7 +4,6 @@
 #include "RenderComponent.h"
 #include "ResourceManager.h"
 #include "Time.h"
-
 dae::GridRenderComponent::GridRenderComponent(const std::string& textureFile, int rows, int columns)
 	:BaseComponent{true}
 	,m_Rows{rows}
@@ -18,10 +17,17 @@ dae::GridRenderComponent::~GridRenderComponent()
 {
 }
 
+void dae::GridRenderComponent::SetTileId(GLuint index, GLuint id, bool checkSurroundings)
+{
+	if(index < m_Vertices.size())
+		m_Vertices[index].id = id;
+	
+}
+
 void dae::GridRenderComponent::Initialize()
 {
 
-	const GLfloat size{ 10.0f };
+	const GLfloat size{ 5.0 };
 	//const int blocks{ 64 * 35 };
 	const GLuint height{ GLuint(m_Rows) };
 	const GLuint width{ GLuint(m_Columns) };
@@ -50,7 +56,7 @@ void dae::GridRenderComponent::Initialize()
 	m_pGameObject->GetRenderComponent()->SetBuffers(m_VertexID, m_IndexID);
 	auto m = GLuint(m_Columns*m_Rows);
 	m_pGameObject->GetRenderComponent()->SetIndexCount(m);
-	m_pGameObject->GetRenderComponent()->SetProgram(dae::ResourceManager::GetInstance().LoadShaders("tileVS.glsl", "tilePS.glsl", "tileGS.glsl"));
+	m_pGameObject->GetRenderComponent()->SetProgram(dae::ResourceManager::GetInstance().LoadShaders("../Essence/tileVS.glsl", "../Essence/tilePS.glsl", "../Essence/tileGS.glsl"));
 	m_pGameObject->GetRenderComponent()->SetRenderType(dae::RenderType::GRID);
 	auto t = dae::ResourceManager::GetInstance().LoadTexture(m_TextureFile);
 	m_pGameObject->GetRenderComponent()->SetTexture(t);
@@ -58,15 +64,9 @@ void dae::GridRenderComponent::Initialize()
 
 void dae::GridRenderComponent::Update()
 {
-	auto ind{ Time::GetInstance().GetFrameCounter() % (m_Rows*m_Columns) };
-	m_Vertices[ind].id = rand() % 4;
-	//vertexBuffer
-	//glGenBuffers(1, &m_VertexID);
-	//glBindBuffer(GL_ARRAY_BUFFER, m_VertexID);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * m_Vertices.size(), m_Vertices.data(), GL_DYNAMIC_DRAW);
 	
 	glBindBuffer(GL_ARRAY_BUFFER, m_VertexID);
-	glBufferSubData(GL_ARRAY_BUFFER, ind * sizeof(Vertex) + 12, 4, &m_Vertices[ind].id);
+	glBufferSubData(GL_ARRAY_BUFFER, 0 , m_Vertices.size() * sizeof(Vertex), m_Vertices.data());
 
 	//m_pGameObject->GetRenderComponent()->SetBuffers(m_VertexID, m_IndexID);
 }
