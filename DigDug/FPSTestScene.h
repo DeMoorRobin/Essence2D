@@ -27,12 +27,7 @@ private:
 
 	dae::GameObject* m_pPlayer;
 	dae::GridRenderComponent* m_pGridComp;
-	void RemoveTiles();
-	bool CanMoveY();
-	bool CanMoveX();
-	GLuint GetTileX(float x);
-	GLuint GetTileY(float y);
-	GLuint GetTile(float x, float y);
+	
 };
 
 

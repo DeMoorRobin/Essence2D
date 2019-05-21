@@ -11,7 +11,7 @@ namespace dae
 
 		void EnterNextFrame();
 
-		float GetDeltaTime() { return m_DeltaTime; };
+		double GetDeltaTime() { return m_DeltaTime/1000.0f; };
 		int GetFrameCounter() { return m_FrameCounter;  };
 		float GetFPS() { return m_FPS; };
 
@@ -23,7 +23,7 @@ namespace dae
 		size_t m_AmountOfFramesForAverage = 5;
 
 		float m_FPS;
-		float m_DeltaTime;
+		double m_DeltaTime;
 		int m_FrameCounter;
 
 	};

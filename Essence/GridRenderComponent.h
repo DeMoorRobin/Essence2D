@@ -15,7 +15,7 @@ namespace dae
 		~GridRenderComponent();
 
 		void SetTileId(GLuint index, GLuint id, bool checkSurroundings = false);
-
+		bool IsTileEmpty(GLuint index);
 
 	protected:
 		void Initialize() override;

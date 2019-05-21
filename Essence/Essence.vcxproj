@@ -160,6 +160,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Action.h" />
+    <ClInclude Include="AnimationRenderComponent.h" />
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="GameObject.h" />
@@ -190,6 +191,7 @@
     <None Include="TileVS.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationRenderComponent.cpp" />
     <ClCompile Include="BaseComponent.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="GameObject.cpp" />

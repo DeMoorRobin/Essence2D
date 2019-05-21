@@ -24,6 +24,13 @@ void dae::GridRenderComponent::SetTileId(GLuint index, GLuint id, bool checkSurr
 	
 }
 
+bool dae::GridRenderComponent::IsTileEmpty(GLuint index)
+{
+	if (index < m_Vertices.size() && m_Vertices[index].id == 999)
+		return true;
+	else return false;
+}
+
 void dae::GridRenderComponent::Initialize()
 {
 

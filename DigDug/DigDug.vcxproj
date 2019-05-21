@@ -189,6 +189,8 @@ xcopy "$(SolutionDir)3rdParty\glew\bin\Release\x64\glew32.dll" "$(OutputPath)" /
   <ItemGroup>
     <ClInclude Include="FPSTestScene.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerBehavior.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DigDug.cpp" />
@@ -199,6 +201,8 @@ xcopy "$(SolutionDir)3rdParty\glew\bin\Release\x64\glew32.dll" "$(OutputPath)" /
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerBehavior.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
