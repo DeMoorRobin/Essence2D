@@ -14,6 +14,7 @@ namespace dae
 
 		bool RequiresRenderComponent() { return m_RequiresRenderComponent; };
 		void SetGameObject(GameObject* pObject) { m_pGameObject = pObject; };
+		GameObject* GetGameObject() { return m_pGameObject; };
 	protected:
 		GameObject* m_pGameObject;
 

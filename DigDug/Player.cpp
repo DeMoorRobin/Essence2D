@@ -5,8 +5,10 @@
 #include "RenderComponent.h"
 #include "PlayerBehavior.h"
 #include "GridRenderComponent.h"
-
+#include "CollisionBoxComponent.h"
 #include "AnimationRenderComponent.h"
+#include "RespectBoundaries.h"
+#include "BlockMovement.h"
 
 
 dae::GameObject * Player::CreatePlayer(dae::GridRenderComponent* pGrid)
@@ -19,7 +21,11 @@ dae::GameObject * Player::CreatePlayer(dae::GridRenderComponent* pGrid)
 
 	player->AddComponent(new PlayerBehavior{pGrid,anim});
 
+	auto* collision = new dae::CollisionBoxComponent{5,5,false,false};
+	player->AddComponent(collision);
 
+	collision->AddCommand(new dae::BlockMovement{});
+	collision->AddCommand(new RespectBoundaries{ 27,101,0,77 });
 
 	player->GetTransform()->Translate(320.0f, 240.0f, 0.3f);
 

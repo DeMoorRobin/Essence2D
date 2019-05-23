@@ -9,6 +9,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="prefabs">
+      <UniqueIdentifier>{e4143718-7be8-42fe-9b26-9ab3fcd1e1ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CustomComponents">
+      <UniqueIdentifier>{70f13910-e341-43e1-b3a4-0c55ea0b841a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CustomCollisionCommand">
+      <UniqueIdentifier>{3dc330fc-0e5e-477d-94c4-d0a3e315b3c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -17,11 +26,23 @@
     <ClInclude Include="FPSTestScene.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerBehavior.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Source Files</Filter>
+      <Filter>prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerBehavior.h">
+      <Filter>CustomComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Stone.h">
+      <Filter>prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="StoneBehavior.h">
+      <Filter>CustomComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockOnPlayer.h">
+      <Filter>CustomCollisionCommand</Filter>
+    </ClInclude>
+    <ClInclude Include="RespectBoundaries.h">
+      <Filter>CustomCollisionCommand</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -35,10 +56,22 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>prefabs</Filter>
     </ClCompile>
     <ClCompile Include="PlayerBehavior.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>CustomComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Stone.cpp">
+      <Filter>prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="StoneBehavior.cpp">
+      <Filter>CustomComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="BlockOnPlayer.cpp">
+      <Filter>CustomCollisionCommand</Filter>
+    </ClCompile>
+    <ClCompile Include="RespectBoundaries.cpp">
+      <Filter>CustomCollisionCommand</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

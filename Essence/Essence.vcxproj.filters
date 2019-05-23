@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Base">
       <UniqueIdentifier>{f1a270ab-cb5c-4921-9a1a-15c51a58ed5a}</UniqueIdentifier>
     </Filter>
@@ -19,6 +15,13 @@
     </Filter>
     <Filter Include="Shaders">
       <UniqueIdentifier>{a427d5f3-9ff7-4b1f-a7c2-231fc4565132}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="CollisionCommands">
+      <UniqueIdentifier>{311b620f-fee0-4e3c-84b4-84a799b4f689}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +90,21 @@
     </ClInclude>
     <ClInclude Include="AnimationRenderComponent.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionBoxComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GridHelper.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionCommand.h">
+      <Filter>CollisionCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockMovement.h">
+      <Filter>CollisionCommands</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +181,18 @@
     </ClCompile>
     <ClCompile Include="AnimationRenderComponent.cpp">
       <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionBoxComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="GridHelper.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="BlockMovement.cpp">
+      <Filter>CollisionCommands</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

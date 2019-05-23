@@ -6,6 +6,7 @@
 #include "Time.h"
 #include "GridRenderComponent.h"
 #include "AnimationRenderComponent.h"
+#include "GridHelper.h"
 
 PlayerBehavior::PlayerBehavior(dae::GridRenderComponent* pGrid, dae::AnimationRenderComponent* pAnim)
 	:BaseComponent{}
@@ -46,16 +47,16 @@ void PlayerBehavior::Initialize()
 	digLeft->push_back(dae::Frame{ 192.0f / 448.0f, (224.0f - 32.0f) / 224.0f,-32.0f / 448.0f,32.0f / 224.0f });
 
 	std::vector<dae::Frame>* digUp{ new std::vector<dae::Frame> {} };
-	digUp->push_back(dae::Frame{ 96.0f / 448.0f, (224.0f - 96.0f) / 224.0f,-32.0f / 448.0f,32.0f / 224.0f });
-	digUp->push_back(dae::Frame{ 128.0f / 448.0f, (224.0f - 96.0f) / 224.0f,-32.0f / 448.0f,32.0f / 224.0f });
-	digUp->push_back(dae::Frame{ 160.0f / 448.0f, (224.0f - 96.0f) / 224.0f,-32.0f / 448.0f,32.0f / 224.0f });
-	digUp->push_back(dae::Frame{ 192.0f / 448.0f, (224.0f - 96.0f) / 224.0f,-32.0f / 448.0f,32.0f / 224.0f });
+	digUp->push_back(dae::Frame{ 64.0f / 448.0f, (224.0f - 96.0f) / 224.0f,32.0f / 448.0f,32.0f / 224.0f });
+	digUp->push_back(dae::Frame{ 96.0f / 448.0f,  (224.0f - 96.0f) / 224.0f,32.0f / 448.0f,32.0f / 224.0f });
+	digUp->push_back(dae::Frame{ 128.0f / 448.0f, (224.0f - 96.0f) / 224.0f,32.0f / 448.0f,32.0f / 224.0f });
+	digUp->push_back(dae::Frame{ 160.0f / 448.0f, (224.0f - 96.0f) / 224.0f,32.0f / 448.0f,32.0f / 224.0f });
 
 	std::vector<dae::Frame>* digDown{ new std::vector<dae::Frame> {} };
-	digDown->push_back(dae::Frame{ 96.0f / 448.0f, (224.0f - 64.0f) / 224.0f,-32.0f / 448.0f,32.0f / 224.0f });
-	digDown->push_back(dae::Frame{ 128.0f / 448.0f, (224.0f - 64.0f) / 224.0f,-32.0f / 448.0f,32.0f / 224.0f });
-	digDown->push_back(dae::Frame{ 160.0f / 448.0f, (224.0f - 64.0f) / 224.0f,-32.0f / 448.0f,32.0f / 224.0f });
-	digDown->push_back(dae::Frame{ 192.0f / 448.0f, (224.0f - 64.0f) / 224.0f,-32.0f / 448.0f,32.0f / 224.0f });
+	digDown->push_back(dae::Frame{ 64.0f / 448.0f, (224.0f - 64.0f) / 224.0f,32.0f / 448.0f,32.0f / 224.0f });
+	digDown->push_back(dae::Frame{ 96.0f / 448.0f, (224.0f - 64.0f) / 224.0f,32.0f / 448.0f,32.0f / 224.0f });
+	digDown->push_back(dae::Frame{ 128.0f / 448.0f, (224.0f - 64.0f) / 224.0f,32.0f / 448.0f,32.0f / 224.0f });
+	digDown->push_back(dae::Frame{ 160.0f / 448.0f, (224.0f - 64.0f) / 224.0f,32.0f / 448.0f,32.0f / 224.0f });
 
 	
 
@@ -93,7 +94,7 @@ void PlayerBehavior::Update()
 			MoveDown();
 		else
 		{
-			auto x = GetTileX(m_pGameObject->GetTransform()->GetPosition().x);
+			auto x = dae::GridHelper::GetTileX(m_pGameObject->GetTransform()->GetPosition().x);
 			if ((x - 3) % 7 < 4)
 				MoveLeft();
 			else MoveRight();
@@ -105,7 +106,7 @@ void PlayerBehavior::Update()
 			MoveUp();
 		else
 		{
-			auto x = GetTileX(m_pGameObject->GetTransform()->GetPosition().x);
+			auto x = dae::GridHelper::GetTileX(m_pGameObject->GetTransform()->GetPosition().x);
 			if ((x - 3) % 7 < 4)
 				MoveLeft();
 			else MoveRight();
@@ -118,7 +119,7 @@ void PlayerBehavior::Update()
 			MoveRight();
 		else
 		{
-			auto y = GetTileY(m_pGameObject->GetTransform()->GetPosition().y);
+			auto y = dae::GridHelper::GetTileY(m_pGameObject->GetTransform()->GetPosition().y);
 			if ((y - 3) % 7 < 4)
 				MoveDown();
 			else MoveUp();
@@ -130,7 +131,7 @@ void PlayerBehavior::Update()
 			MoveLeft();
 		else
 		{
-			auto y = GetTileY(m_pGameObject->GetTransform()->GetPosition().y);
+			auto y = dae::GridHelper::GetTileY(m_pGameObject->GetTransform()->GetPosition().y);
 			if ((y - 3) % 7 < 4)
 				MoveDown();
 			else MoveUp();
@@ -142,70 +143,50 @@ void PlayerBehavior::Update()
 
 bool PlayerBehavior::CanMoveX()
 {
-	return (GetTileY(m_pGameObject->GetTransform()->GetPosition().y) - 3) % 7 == 0;
+	return (dae::GridHelper::GetTileY(m_pGameObject->GetTransform()->GetPosition().y) - 3) % 7 == 0;
 }
 
 bool PlayerBehavior::CanMoveY()
 {
-	return (GetTileX(m_pGameObject->GetTransform()->GetPosition().x) - 3) % 7 == 0;
-}
-
-GLuint PlayerBehavior::GetTileX(float x)
-{
-	float tileSize = 5.0;
-
-	return int(x / tileSize);
-}
-
-GLuint PlayerBehavior::GetTileY(float y)
-{
-	float tileSize = 5.0f;
-
-	return int(y / tileSize);
-}
-
-GLuint PlayerBehavior::GetTile(float x, float y)
-{
-	GLuint width = 128;
-	return GetTileY(y) * width + GetTileX(x);
+	return (dae::GridHelper::GetTileX(m_pGameObject->GetTransform()->GetPosition().x) - 3) % 7 == 0;
 }
 
 void PlayerBehavior::MoveLeft()
 {
 	m_pGameObject->GetTransform()->Translate(-m_MoveSpeed * dae::Time::GetInstance().GetDeltaTime(), 0, 0);
 
-	GLuint checkTile{ GetTile(m_pGameObject->GetTransform()->GetPosition().x - 3.0f*tileSize, m_pGameObject->GetTransform()->GetPosition().y) };
+	GLuint checkTile{ dae::GridHelper::GetTile(m_pGameObject->GetTransform()->GetPosition().x - 3.0f*tileSize, m_pGameObject->GetTransform()->GetPosition().y) };
 	if(m_pGrid->IsTileEmpty(checkTile))
 		m_pAnim->SetCurrentAnimation(int(Animation::RUNLEFT), 0.3f);
-	else m_pAnim->SetCurrentAnimation(int(Animation::DIGLEFT), 0.3f);
+	else m_pAnim->SetCurrentAnimation(int(Animation::DIGLEFT), 0.1f);
 }
 
 void PlayerBehavior::MoveRight()
 {
 	m_pGameObject->GetTransform()->Translate(m_MoveSpeed * dae::Time::GetInstance().GetDeltaTime(), 0, 0);
-	GLuint checkTile { GetTile(m_pGameObject->GetTransform()->GetPosition().x + 3.0f*tileSize, m_pGameObject->GetTransform()->GetPosition().y)};
+	GLuint checkTile { dae::GridHelper::GetTile(m_pGameObject->GetTransform()->GetPosition().x + 3.0f*tileSize, m_pGameObject->GetTransform()->GetPosition().y)};
 	if (m_pGrid->IsTileEmpty(checkTile))
 		m_pAnim->SetCurrentAnimation(int(Animation::RUNRIGHT), 0.3f);
-	else m_pAnim->SetCurrentAnimation(int(Animation::DIGRIGHT), 0.3f);
+	else m_pAnim->SetCurrentAnimation(int(Animation::DIGRIGHT), 0.1f);
 }
 
 void PlayerBehavior::MoveUp()
 {
 	m_pGameObject->GetTransform()->Translate(0, m_MoveSpeed* dae::Time::GetInstance().GetDeltaTime(), 0);
-	GLuint checkTile{ GetTile(m_pGameObject->GetTransform()->GetPosition().x , m_pGameObject->GetTransform()->GetPosition().y + 3.0f*tileSize) };
+	GLuint checkTile{ dae::GridHelper::GetTile(m_pGameObject->GetTransform()->GetPosition().x , m_pGameObject->GetTransform()->GetPosition().y + 3.0f*tileSize) };
 	if (m_pGrid->IsTileEmpty(checkTile))
 		m_pAnim->SetCurrentAnimation(int(Animation::RUNUP), 0.3f);
-	else m_pAnim->SetCurrentAnimation(int(Animation::DIGUP), 0.3f);
+	else m_pAnim->SetCurrentAnimation(int(Animation::DIGUP), 0.1f);
 
 }
 
 void PlayerBehavior::MoveDown()
 {
 	m_pGameObject->GetTransform()->Translate(0, -m_MoveSpeed * dae::Time::GetInstance().GetDeltaTime(), 0);
-	GLuint checkTile { GetTile(m_pGameObject->GetTransform()->GetPosition().x, m_pGameObject->GetTransform()->GetPosition().y - 3.0f*tileSize)};
+	GLuint checkTile { dae::GridHelper::GetTile(m_pGameObject->GetTransform()->GetPosition().x, m_pGameObject->GetTransform()->GetPosition().y - 3.0f*tileSize)};
 	if (m_pGrid->IsTileEmpty(checkTile))
 		m_pAnim->SetCurrentAnimation(int(Animation::RUNDOWN), 0.3f);
-	else m_pAnim->SetCurrentAnimation(int(Animation::DIGDOWN), 0.3f);
+	else m_pAnim->SetCurrentAnimation(int(Animation::DIGDOWN), 0.1f);
 }
 
 void PlayerBehavior::RemoveTiles()
@@ -215,7 +196,7 @@ void PlayerBehavior::RemoveTiles()
 	{
 		for (int j{ -2 }; j < 3; ++j)
 		{
-			GLuint tile = GetTile(m_pGameObject->GetTransform()->GetPosition().x + j * tileSize, m_pGameObject->GetTransform()->GetPosition().y + i * tileSize);
+			GLuint tile = dae::GridHelper::GetTile(m_pGameObject->GetTransform()->GetPosition().x + j * tileSize, m_pGameObject->GetTransform()->GetPosition().y + i * tileSize);
 			m_pGrid->SetTileId(tile, 999);
 		}
 	}

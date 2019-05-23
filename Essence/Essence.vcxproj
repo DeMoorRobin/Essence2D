@@ -162,14 +162,19 @@
     <ClInclude Include="Action.h" />
     <ClInclude Include="AnimationRenderComponent.h" />
     <ClInclude Include="BaseComponent.h" />
+    <ClInclude Include="BlockMovement.h" />
+    <ClInclude Include="CollisionBoxComponent.h" />
+    <ClInclude Include="CollisionCommand.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GridHelper.h" />
     <ClInclude Include="GridRenderComponent.h" />
     <ClInclude Include="ImageComponent.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="Minigin.h" />
     <ClInclude Include="MiniginPCH.h" />
+    <ClInclude Include="Physics.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResourceManager.h" />
@@ -193,8 +198,11 @@
   <ItemGroup>
     <ClCompile Include="AnimationRenderComponent.cpp" />
     <ClCompile Include="BaseComponent.cpp" />
+    <ClCompile Include="BlockMovement.cpp" />
+    <ClCompile Include="CollisionBoxComponent.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GridHelper.cpp" />
     <ClCompile Include="GridRenderComponent.cpp" />
     <ClCompile Include="ImageComponent.cpp" />
     <ClCompile Include="InputManager.cpp" />
@@ -205,6 +213,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Physics.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />

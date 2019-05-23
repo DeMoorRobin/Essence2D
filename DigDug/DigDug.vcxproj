@@ -187,12 +187,17 @@ xcopy "$(SolutionDir)3rdParty\glew\bin\Release\x64\glew32.dll" "$(OutputPath)" /
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BlockOnPlayer.h" />
     <ClInclude Include="FPSTestScene.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerBehavior.h" />
+    <ClInclude Include="RespectBoundaries.h" />
+    <ClInclude Include="Stone.h" />
+    <ClInclude Include="StoneBehavior.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BlockOnPlayer.cpp" />
     <ClCompile Include="DigDug.cpp" />
     <ClCompile Include="FPSTestScene.cpp" />
     <ClCompile Include="pch.cpp">
@@ -203,6 +208,9 @@ xcopy "$(SolutionDir)3rdParty\glew\bin\Release\x64\glew32.dll" "$(OutputPath)" /
     </ClCompile>
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerBehavior.cpp" />
+    <ClCompile Include="RespectBoundaries.cpp" />
+    <ClCompile Include="Stone.cpp" />
+    <ClCompile Include="StoneBehavior.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

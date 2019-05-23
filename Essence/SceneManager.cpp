@@ -1,6 +1,7 @@
 #include "MiniginPCH.h"
 #include "SceneManager.h"
 #include "Scene.h"
+#include "Physics.h"
 
 dae::SceneManager::SceneManager()
 {
@@ -26,6 +27,7 @@ dae::Scene* dae::SceneManager::GetActiveScene()
 void dae::SceneManager::BaseUpdate()
 {
 	m_pActiveScene->BaseUpdate();
+	dae::Physics::GetInstance().Update();
 }
 
 void dae::SceneManager::BaseDraw()

@@ -4,8 +4,7 @@
 #include "TransformComponent.h"
 
 dae::GameObject::GameObject()
-	:m_Children{}
-	,m_pComponents{}
+	:m_pComponents{}
 {
 	m_pTransform = new TransformComponent{};
 }

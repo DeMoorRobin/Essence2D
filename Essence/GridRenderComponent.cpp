@@ -34,7 +34,7 @@ bool dae::GridRenderComponent::IsTileEmpty(GLuint index)
 void dae::GridRenderComponent::Initialize()
 {
 
-	const GLfloat size{ 5.0 };
+	const GLfloat size{ 5.0f };
 	//const int blocks{ 64 * 35 };
 	const GLuint height{ GLuint(m_Rows) };
 	const GLuint width{ GLuint(m_Columns) };

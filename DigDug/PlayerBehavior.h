@@ -19,9 +19,6 @@ private:
 	void RemoveTiles();
 	bool CanMoveY();
 	bool CanMoveX();
-	GLuint GetTileX(float x);
-	GLuint GetTileY(float y);
-	GLuint GetTile(float x, float y);
 	dae::GridRenderComponent* m_pGrid;
 	dae::AnimationRenderComponent* m_pAnim;
 
