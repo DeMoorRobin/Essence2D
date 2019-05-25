@@ -16,7 +16,7 @@ namespace dae
 		void AddAnimation(std::vector<Frame>* pAnimation, int id);
 
 		void SetCurrentAnimation(int id, float timePerFrame, int startFrame = 0, bool restartOnSame = false);
-
+		int GetCurrentAnimation() { return m_CurrentAnimation; };
 	protected:
 		void Initialize() override;
 		void Update() override;

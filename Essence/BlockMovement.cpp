@@ -5,7 +5,8 @@
 #include "TransformComponent.h"
 
 dae::BlockMovement::BlockMovement()
-	:m_PrevPos{}
+	:CollisionCommand{}
+	,m_PrevPos{}
 {
 }
 

@@ -33,7 +33,7 @@ void dae::ImageComponent::Initialize()
 	center.push_back(GLfloat(m_UVSourceRect.w));
 	glGenBuffers(1, &m_VertexID);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VertexID);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * center.size(), center.data(), GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * center.size(), center.data(), GL_STATIC_DRAW);
 	m_pGameObject->GetRenderComponent()->SetBuffers(m_VertexID, 0);
 }
 

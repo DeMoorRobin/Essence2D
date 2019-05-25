@@ -7,7 +7,8 @@
 #include "StoneBehavior.h"
 
 BlockOnPlayer::BlockOnPlayer(const glm::vec3& initPos)
-	:m_PrevPos{initPos}
+	:dae::CollisionCommand{}
+	,m_PrevPos{initPos}
 {
 }
 

@@ -2,7 +2,8 @@
 #include "TransformComponent.h"
 
 dae::TransformComponent::TransformComponent()
-	:m_Position{}
+	:BaseComponent{}
+	,m_Position{}
 	,m_Scale{1.0f,1.0f}
 {
 }

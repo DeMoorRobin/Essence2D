@@ -9,7 +9,7 @@
 #include "GridHelper.h"
 
 PlayerBehavior::PlayerBehavior(dae::GridRenderComponent* pGrid, dae::AnimationRenderComponent* pAnim)
-	:BaseComponent{}
+	:dae::BaseComponent{}
 	,m_pGrid{pGrid}
 	,m_MoveSpeed{60.0f}
 	,m_pAnim{pAnim}
@@ -18,59 +18,7 @@ PlayerBehavior::PlayerBehavior(dae::GridRenderComponent* pGrid, dae::AnimationRe
 
 void PlayerBehavior::Initialize()
 {
-	std::vector<dae::Frame>* runRight{ new std::vector<dae::Frame>{} };
-	runRight->push_back(dae::Frame{ 0, (224.0f - 32.0f) / 224.0f,32.0f / 448.0f,32.0f / 224.0f });
-	runRight->push_back(dae::Frame{ 32.0f / 448.0f, (224.0f - 32.0f) / 224.0f,32.0f / 448.0f,32.0f / 224.0f });
-
-	std::vector<dae::Frame>* runLeft{ new std::vector<dae::Frame>{} };
-	runLeft->push_back(dae::Frame{ 32.0f / 448.0f, (224.0f - 32.0f) / 224.0f,-32.0f / 448.0f,32.0f / 224.0f });
-	runLeft->push_back(dae::Frame{ 64.0f / 448.0f, (224.0f - 32.0f) / 224.0f,-32.0f / 448.0f,32.0f / 224.0f });
-
-	std::vector<dae::Frame>* runUp{ new std::vector<dae::Frame>{} };
-	runUp->push_back(dae::Frame{ 0.0f, (224.0f - 96.0f) / 224.0f,32.0f / 448.0f,32.0f / 224.0f });
-	runUp->push_back(dae::Frame{ 32.0f / 448.0f, (224.0f - 96.0f) / 224.0f,32.0f / 448.0f,32.0f / 224.0f });
-
-	std::vector<dae::Frame>* runDown{ new std::vector<dae::Frame>{} };
-	runDown->push_back(dae::Frame{ 0.0f / 448.0f, (224.0f - 64.0f) / 224.0f,32.0f / 448.0f,32.0f / 224.0f });
-	runDown->push_back(dae::Frame{ 32.0f / 448.0f, (224.0f - 64.0f) / 224.0f,32.0f / 448.0f,32.0f / 224.0f });
-
-	std::vector<dae::Frame>* digRight{ new std::vector<dae::Frame> {} };
-	digRight->push_back(dae::Frame{ 64.0f, (224.0f - 32.0f) / 224.0f,32.0f / 448.0f,32.0f / 224.0f });
-	digRight->push_back(dae::Frame{ 96.0f / 448.0f, (224.0f - 32.0f) / 224.0f,32.0f / 448.0f,32.0f / 224.0f });
-	digRight->push_back(dae::Frame{ 128.0f / 448.0f, (224.0f - 32.0f) / 224.0f,32.0f / 448.0f,32.0f / 224.0f });
-	digRight->push_back(dae::Frame{ 160.0f / 448.0f, (224.0f - 32.0f) / 224.0f,32.0f / 448.0f,32.0f / 224.0f });
-
-	std::vector<dae::Frame>* digLeft{ new std::vector<dae::Frame> {} };
-	digLeft->push_back(dae::Frame{ 96.0f / 448.0f, (224.0f - 32.0f) / 224.0f,-32.0f / 448.0f,32.0f / 224.0f });
-	digLeft->push_back(dae::Frame{ 128.0f / 448.0f, (224.0f - 32.0f) / 224.0f,-32.0f / 448.0f,32.0f / 224.0f });
-	digLeft->push_back(dae::Frame{ 160.0f / 448.0f, (224.0f - 32.0f) / 224.0f,-32.0f / 448.0f,32.0f / 224.0f });
-	digLeft->push_back(dae::Frame{ 192.0f / 448.0f, (224.0f - 32.0f) / 224.0f,-32.0f / 448.0f,32.0f / 224.0f });
-
-	std::vector<dae::Frame>* digUp{ new std::vector<dae::Frame> {} };
-	digUp->push_back(dae::Frame{ 64.0f / 448.0f, (224.0f - 96.0f) / 224.0f,32.0f / 448.0f,32.0f / 224.0f });
-	digUp->push_back(dae::Frame{ 96.0f / 448.0f,  (224.0f - 96.0f) / 224.0f,32.0f / 448.0f,32.0f / 224.0f });
-	digUp->push_back(dae::Frame{ 128.0f / 448.0f, (224.0f - 96.0f) / 224.0f,32.0f / 448.0f,32.0f / 224.0f });
-	digUp->push_back(dae::Frame{ 160.0f / 448.0f, (224.0f - 96.0f) / 224.0f,32.0f / 448.0f,32.0f / 224.0f });
-
-	std::vector<dae::Frame>* digDown{ new std::vector<dae::Frame> {} };
-	digDown->push_back(dae::Frame{ 64.0f / 448.0f, (224.0f - 64.0f) / 224.0f,32.0f / 448.0f,32.0f / 224.0f });
-	digDown->push_back(dae::Frame{ 96.0f / 448.0f, (224.0f - 64.0f) / 224.0f,32.0f / 448.0f,32.0f / 224.0f });
-	digDown->push_back(dae::Frame{ 128.0f / 448.0f, (224.0f - 64.0f) / 224.0f,32.0f / 448.0f,32.0f / 224.0f });
-	digDown->push_back(dae::Frame{ 160.0f / 448.0f, (224.0f - 64.0f) / 224.0f,32.0f / 448.0f,32.0f / 224.0f });
-
 	
-
-	m_pAnim->AddAnimation(runRight, int(Animation::RUNRIGHT));
-	m_pAnim->AddAnimation(runLeft, int(Animation::RUNLEFT));
-	m_pAnim->AddAnimation(runUp, int(Animation::RUNUP));
-	m_pAnim->AddAnimation(runDown, int(Animation::RUNDOWN));
-	m_pAnim->AddAnimation(digRight, int(Animation::DIGRIGHT));
-	m_pAnim->AddAnimation(digLeft, int(Animation::DIGLEFT));
-	m_pAnim->AddAnimation(digUp, int(Animation::DIGUP));
-	m_pAnim->AddAnimation(digDown, int(Animation::DIGDOWN));
-
-
-	m_pAnim->SetCurrentAnimation(int(Animation::RUNRIGHT), 0.3f, 0, true);
 }
 
 void PlayerBehavior::Update()

@@ -120,7 +120,6 @@ void dae::Renderer::Draw()
 
 void dae::Renderer::Sort()
 {
-	std::sort(m_RenderComponents.begin(), m_RenderComponents.end(), [](dae::RenderComponent& a, dae::RenderComponent& b) {return a.GetDepth() < b.GetDepth(); });
 }
 
 dae::RenderComponent* dae::Renderer::RequestRenderComponent()

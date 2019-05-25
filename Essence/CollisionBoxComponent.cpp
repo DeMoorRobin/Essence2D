@@ -8,11 +8,13 @@
 #include "CollisionCommand.h"
 
 dae::CollisionBoxComponent::CollisionBoxComponent(int sizeX, int sizeY, bool isStatic, bool isTrigger)
-	:m_SizeX{sizeX}
+	:BaseComponent{}
+	,m_SizeX{sizeX}
 	,m_SizeY{sizeY}
 	,m_CurrentRect{}
 	,m_IsStatic{isStatic}
 	,m_IsTrigger{isTrigger}
+	,m_pCommands{}
 {
 }
 
@@ -22,6 +24,7 @@ dae::CollisionBoxComponent::~CollisionBoxComponent()
 	{
 		delete command;
 	}
+	dae::Physics::GetInstance().RemoveCollisionComponent(this);
 }
 
 
@@ -35,9 +38,9 @@ void dae::CollisionBoxComponent::TriggerCollision(CollisionBoxComponent * pOther
 
 void dae::CollisionBoxComponent::PrepareCollision()
 {
-	for (auto* command : m_pCommands)
+	for (size_t i{}; i < m_pCommands.size(); ++i)
 	{
-		command->Update(this);
+		m_pCommands[i]->Update(this);
 	}
 }
 
@@ -62,6 +65,7 @@ void dae::CollisionBoxComponent::Initialize()
 
 void dae::CollisionBoxComponent::Update()
 {
+
 	if (true)
 	{
 		m_CurrentRect.x = dae::GridHelper::GetTileX(m_pGameObject->GetTransform()->GetPosition().x) - m_SizeX / 2;

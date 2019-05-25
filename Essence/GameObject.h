@@ -5,6 +5,7 @@ namespace dae
 	class BaseComponent;
 	class TransformComponent;
 	class RenderComponent;
+	class Scene;
 
 	class GameObject final
 	{
@@ -22,11 +23,15 @@ namespace dae
 		void BaseDraw();
 
 		void AddComponent(BaseComponent* pComp);
-		void AddRenderComponent(RenderComponent* pRenderComp);
 		//void RemoveComponent(BaseComponent* pComp);
 
 		RenderComponent* GetRenderComponent() const { return m_pRenderComponent; };
 		TransformComponent* GetTransform()const { return m_pTransform; };
+
+		void RelinkComponents();
+
+		void SetScene(Scene* pScene) { m_pScene = pScene; };
+		Scene* GetScene() { return m_pScene; };
 
 		template<typename T>
 		T GetComponent()
@@ -44,12 +49,14 @@ namespace dae
 	protected:
 		//virtual void Update() = 0;
 		//virtual void Draw() = 0;
+		Scene* m_pScene;
 
 	private:
 
 		std::vector<BaseComponent*> m_pComponents;
 		TransformComponent* m_pTransform;
 		RenderComponent* m_pRenderComponent;
+		
 	};
 }
 

@@ -10,7 +10,7 @@ namespace dae
 		~Physics();
 
 		void AddCollisionComponent(CollisionBoxComponent* pBox);
-		
+		void RemoveCollisionComponent(CollisionBoxComponent* pBox);
 		void Update();
 	
 	private:

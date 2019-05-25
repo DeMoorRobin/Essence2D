@@ -1,9 +1,10 @@
 #pragma once
-
+#include <unordered_map>
 
 namespace dae
 {
 	class GameObject;
+	class RenderComponent;
 
 	class Scene
 	{
@@ -15,6 +16,9 @@ namespace dae
 		void BaseDraw();
 
 		void AddChild(GameObject* pObj);
+		void RemoveChild(GameObject* pObj);
+
+		RenderComponent* RequestRenderComponent(GameObject* pObj);
 
 	protected:
 
@@ -23,6 +27,9 @@ namespace dae
 
 	private:
 		std::vector<GameObject*> m_pChildren;
+		std::vector<RenderComponent> m_RenderComponents;
+		std::unordered_map<GameObject*, RenderComponent*> m_ObjToRenderMap;
+
 
 	};
 }

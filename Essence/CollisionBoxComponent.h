@@ -11,7 +11,14 @@ namespace dae
 		const SDL_Rect& GetCurrentRect() { return m_CurrentRect; };
 		void TriggerCollision(CollisionBoxComponent* pOther);
 
-		void AddCommand(CollisionCommand* pCommand) { m_pCommands.push_back(pCommand); };
+		void AddCommand(CollisionCommand* pCommand)
+		{ 
+			m_pCommands.push_back(pCommand); 
+			if (m_pCommands.size() > 5)
+			{
+				std::cout << "WTF";
+			}
+		};
 		bool IsStatic() { return m_IsStatic; };
 		void PrepareCollision();
 		void EnableStatic(bool enable) {m_IsStatic = enable;};

@@ -21,6 +21,11 @@ namespace dae
 
 		//const SDL_Rect& GetImageDimensions();
 
+		friend bool operator== (const RenderComponent &lhs, const RenderComponent &rhs)
+		{
+			return lhs.m_pTransformComponent == rhs.m_pTransformComponent;
+		}
+
 		void Draw();
 		void SetTexture(Texture2D texture);
 		void SetTransform(TransformComponent* pTransform);

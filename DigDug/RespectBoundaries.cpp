@@ -5,7 +5,8 @@
 #include "GameObject.h"
 #include "TransformComponent.h"
 RespectBoundaries::RespectBoundaries(float left,float right, float bot, float top)
-	:m_LeftB{left}
+	:dae::CollisionCommand{}
+	,m_LeftB{left}
 	,m_RightB{right}
 	,m_DownB{bot}
 	,m_UpB{top}

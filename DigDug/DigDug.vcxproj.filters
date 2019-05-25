@@ -18,6 +18,15 @@
     <Filter Include="CustomCollisionCommand">
       <UniqueIdentifier>{3dc330fc-0e5e-477d-94c4-d0a3e315b3c7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Behaviors">
+      <UniqueIdentifier>{549061a2-1cd0-4c03-b1ff-183ad30d32ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Behaviors\Pooka">
+      <UniqueIdentifier>{02c7648b-7145-4d96-b88f-2d1ec59b8204}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Behaviors\Player">
+      <UniqueIdentifier>{ae09bf86-950d-4a52-9bbd-e2fe09f0f172}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -43,6 +52,36 @@
     </ClInclude>
     <ClInclude Include="RespectBoundaries.h">
       <Filter>CustomCollisionCommand</Filter>
+    </ClInclude>
+    <ClInclude Include="Pooka.h">
+      <Filter>prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="PookaChase.h">
+      <Filter>Behaviors\Pooka</Filter>
+    </ClInclude>
+    <ClInclude Include="PookaMoveBehavior.h">
+      <Filter>Behaviors\Pooka</Filter>
+    </ClInclude>
+    <ClInclude Include="PookaWander.h">
+      <Filter>Behaviors\Pooka</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMoveBehavior.h">
+      <Filter>Behaviors\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerPumpState.h">
+      <Filter>Behaviors\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Pump.h">
+      <Filter>prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="TriggerOnEnemy.h">
+      <Filter>CustomCollisionCommand</Filter>
+    </ClInclude>
+    <ClInclude Include="Inflatable.h">
+      <Filter>CustomComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="PookaInflate.h">
+      <Filter>Behaviors\Pooka</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +111,33 @@
     </ClCompile>
     <ClCompile Include="RespectBoundaries.cpp">
       <Filter>CustomCollisionCommand</Filter>
+    </ClCompile>
+    <ClCompile Include="Pooka.cpp">
+      <Filter>prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="PookaChase.cpp">
+      <Filter>Behaviors\Pooka</Filter>
+    </ClCompile>
+    <ClCompile Include="PookaMoveBehavior.cpp">
+      <Filter>Behaviors\Pooka</Filter>
+    </ClCompile>
+    <ClCompile Include="PookaWander.cpp">
+      <Filter>Behaviors\Pooka</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerMoveBehavior.cpp">
+      <Filter>Behaviors\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerPumpState.cpp">
+      <Filter>Behaviors\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Pump.cpp">
+      <Filter>prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="TriggerOnEnemy.cpp">
+      <Filter>CustomCollisionCommand</Filter>
+    </ClCompile>
+    <ClCompile Include="PookaInflate.cpp">
+      <Filter>Behaviors\Pooka</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

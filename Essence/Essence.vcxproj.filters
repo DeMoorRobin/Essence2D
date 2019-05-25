@@ -106,6 +106,12 @@
     <ClInclude Include="BlockMovement.h">
       <Filter>CollisionCommands</Filter>
     </ClInclude>
+    <ClInclude Include="StateMachineComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="SpriteGS.glsl">
@@ -193,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="BlockMovement.cpp">
       <Filter>CollisionCommands</Filter>
+    </ClCompile>
+    <ClCompile Include="StateMachineComponent.cpp">
+      <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

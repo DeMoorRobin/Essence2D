@@ -13,6 +13,9 @@ dae::RenderComponent::RenderComponent()
 	:m_Texture{0,0,0}
 	,m_VertexBufferID{}
 	,m_IndexBufferID{}
+	,m_ProgramID{}
+	,m_IndexCount{}
+	,m_RenderType{}
 {
 }
 

@@ -54,7 +54,7 @@ void dae::GridRenderComponent::Initialize()
 	//vertexBuffer
 	glGenBuffers(1, &m_VertexID);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VertexID);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * m_Vertices.size(), m_Vertices.data(), GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * m_Vertices.size(), m_Vertices.data(), GL_STATIC_DRAW);
 	//index buffer
 	//glGenBuffers(1, &m_IndexID);
 	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexID);

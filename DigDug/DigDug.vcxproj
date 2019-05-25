@@ -134,14 +134,15 @@ xcopy "$(SolutionDir)3rdParty\glew\bin\Release\Win32\glew32.dll" "$(OutputPath)"
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Disabled</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\glew\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)Essence;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -162,14 +163,15 @@ xcopy "$(SolutionDir)3rdParty\glew\bin\Release\Win32\glew32.dll" "$(OutputPath)"
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Disabled</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\glew\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2\include;$(SolutionDir)3rdParty\SDL2_image\include;$(SolutionDir)3rdParty\SDL2_ttf\include;$(SolutionDir)Essence;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -189,12 +191,22 @@ xcopy "$(SolutionDir)3rdParty\glew\bin\Release\x64\glew32.dll" "$(OutputPath)" /
   <ItemGroup>
     <ClInclude Include="BlockOnPlayer.h" />
     <ClInclude Include="FPSTestScene.h" />
+    <ClInclude Include="Inflatable.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerBehavior.h" />
+    <ClInclude Include="PlayerMoveBehavior.h" />
+    <ClInclude Include="PlayerPumpState.h" />
+    <ClInclude Include="Pooka.h" />
+    <ClInclude Include="PookaChase.h" />
+    <ClInclude Include="PookaInflate.h" />
+    <ClInclude Include="PookaMoveBehavior.h" />
+    <ClInclude Include="PookaWander.h" />
+    <ClInclude Include="Pump.h" />
     <ClInclude Include="RespectBoundaries.h" />
     <ClInclude Include="Stone.h" />
     <ClInclude Include="StoneBehavior.h" />
+    <ClInclude Include="TriggerOnEnemy.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BlockOnPlayer.cpp" />
@@ -208,9 +220,18 @@ xcopy "$(SolutionDir)3rdParty\glew\bin\Release\x64\glew32.dll" "$(OutputPath)" /
     </ClCompile>
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerBehavior.cpp" />
+    <ClCompile Include="PlayerMoveBehavior.cpp" />
+    <ClCompile Include="PlayerPumpState.cpp" />
+    <ClCompile Include="Pooka.cpp" />
+    <ClCompile Include="PookaChase.cpp" />
+    <ClCompile Include="PookaInflate.cpp" />
+    <ClCompile Include="PookaMoveBehavior.cpp" />
+    <ClCompile Include="PookaWander.cpp" />
+    <ClCompile Include="Pump.cpp" />
     <ClCompile Include="RespectBoundaries.cpp" />
     <ClCompile Include="Stone.cpp" />
     <ClCompile Include="StoneBehavior.cpp" />
+    <ClCompile Include="TriggerOnEnemy.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

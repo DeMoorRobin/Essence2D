@@ -19,6 +19,13 @@ void dae::Physics::AddCollisionComponent(dae::CollisionBoxComponent* pBox)
 	m_pCollisionBoxes.push_back(pBox);
 }
 
+void dae::Physics::RemoveCollisionComponent(CollisionBoxComponent * pBox)
+{
+	auto it = std::find(m_pCollisionBoxes.begin(), m_pCollisionBoxes.end(), pBox);
+	if(it!=m_pCollisionBoxes.end())
+	m_pCollisionBoxes.erase(it);
+}
+
 void dae::Physics::Update()
 {
 	std::unordered_multimap<int, dae::CollisionBoxComponent*> collisionMap{};
