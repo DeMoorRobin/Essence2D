@@ -64,9 +64,9 @@ void dae::Scene::RemoveChild(GameObject * pObj)
 		m_pChildren.erase(it);
 
 		m_ObjToRenderMap.erase(pObj);
-		for (auto* pObj : m_pChildren)
+		for (auto* pObje : m_pChildren)
 		{
-			pObj->RelinkComponents();
+			pObje->RelinkComponents();
 		}
 	}
 	

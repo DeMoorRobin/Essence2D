@@ -120,7 +120,7 @@ void PlayerBehavior::MoveRight()
 
 void PlayerBehavior::MoveUp()
 {
-	m_pGameObject->GetTransform()->Translate(0, m_MoveSpeed* dae::Time::GetInstance().GetDeltaTime(), 0);
+	m_pGameObject->GetTransform()->Translate(0,float( m_MoveSpeed* dae::Time::GetInstance().GetDeltaTime()), 0);
 	GLuint checkTile{ dae::GridHelper::GetTile(m_pGameObject->GetTransform()->GetPosition().x , m_pGameObject->GetTransform()->GetPosition().y + 3.0f*tileSize) };
 	if (m_pGrid->IsTileEmpty(checkTile))
 		m_pAnim->SetCurrentAnimation(int(Animation::RUNUP), 0.3f);
@@ -130,7 +130,7 @@ void PlayerBehavior::MoveUp()
 
 void PlayerBehavior::MoveDown()
 {
-	m_pGameObject->GetTransform()->Translate(0, -m_MoveSpeed * dae::Time::GetInstance().GetDeltaTime(), 0);
+	m_pGameObject->GetTransform()->Translate(0, float(-m_MoveSpeed * dae::Time::GetInstance().GetDeltaTime()), 0);
 	GLuint checkTile { dae::GridHelper::GetTile(m_pGameObject->GetTransform()->GetPosition().x, m_pGameObject->GetTransform()->GetPosition().y - 3.0f*tileSize)};
 	if (m_pGrid->IsTileEmpty(checkTile))
 		m_pAnim->SetCurrentAnimation(int(Animation::RUNDOWN), 0.3f);

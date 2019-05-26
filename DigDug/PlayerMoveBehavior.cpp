@@ -101,7 +101,7 @@ bool PlayerMoveBehavior::CanMoveX(dae::GameObject* pObj)
 
 void PlayerMoveBehavior::MoveLeft(dae::GameObject* pObj)
 {
-	pObj->GetTransform()->Translate(-m_MoveSpeed * dae::Time::GetInstance().GetDeltaTime(), 0, 0);
+	pObj->GetTransform()->Translate(float(-m_MoveSpeed * dae::Time::GetInstance().GetDeltaTime()), 0, 0);
 
 	GLuint checkTile{ dae::GridHelper::GetTile(pObj->GetTransform()->GetPosition().x - 3.0f*tileSize, pObj->GetTransform()->GetPosition().y) };
 	if (m_pGrid->IsTileEmpty(checkTile))
@@ -111,7 +111,7 @@ void PlayerMoveBehavior::MoveLeft(dae::GameObject* pObj)
 
 void PlayerMoveBehavior::MoveRight(dae::GameObject* pObj)
 {
-	pObj->GetTransform()->Translate(m_MoveSpeed * dae::Time::GetInstance().GetDeltaTime(), 0, 0);
+	pObj->GetTransform()->Translate(float(m_MoveSpeed * dae::Time::GetInstance().GetDeltaTime()), 0, 0);
 	GLuint checkTile{ dae::GridHelper::GetTile(pObj->GetTransform()->GetPosition().x + 3.0f*tileSize, pObj->GetTransform()->GetPosition().y) };
 	if (m_pGrid->IsTileEmpty(checkTile))
 		m_pAnim->SetCurrentAnimation(int(Animation::RUNRIGHT), 0.3f);
@@ -120,7 +120,7 @@ void PlayerMoveBehavior::MoveRight(dae::GameObject* pObj)
 
 void PlayerMoveBehavior::MoveUp(dae::GameObject* pObj)
 {
-	pObj->GetTransform()->Translate(0, m_MoveSpeed* dae::Time::GetInstance().GetDeltaTime(), 0);
+	pObj->GetTransform()->Translate(0,float( m_MoveSpeed* dae::Time::GetInstance().GetDeltaTime()), 0);
 	GLuint checkTile{ dae::GridHelper::GetTile(pObj->GetTransform()->GetPosition().x , pObj->GetTransform()->GetPosition().y + 3.0f*tileSize) };
 	if (m_pGrid->IsTileEmpty(checkTile))
 		m_pAnim->SetCurrentAnimation(int(Animation::RUNUP), 0.3f);
@@ -129,7 +129,7 @@ void PlayerMoveBehavior::MoveUp(dae::GameObject* pObj)
 
 void PlayerMoveBehavior::MoveDown(dae::GameObject* pObj)
 {
-	pObj->GetTransform()->Translate(0, -m_MoveSpeed * dae::Time::GetInstance().GetDeltaTime(), 0);
+	pObj->GetTransform()->Translate(0, float(-m_MoveSpeed * dae::Time::GetInstance().GetDeltaTime()), 0);
 	GLuint checkTile{ dae::GridHelper::GetTile(pObj->GetTransform()->GetPosition().x, pObj->GetTransform()->GetPosition().y - 3.0f*tileSize) };
 	if (m_pGrid->IsTileEmpty(checkTile))
 		m_pAnim->SetCurrentAnimation(int(Animation::RUNDOWN), 0.3f);

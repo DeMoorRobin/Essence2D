@@ -5,7 +5,7 @@
 dae::StateMachineComponent::StateMachineComponent(int startState)
 	:BaseComponent{}
 	,m_pStates{}
-	, m_CurrentState{}
+	, m_CurrentState{startState}
 {
 }
 
@@ -26,7 +26,7 @@ void dae::StateMachineComponent::Initialize()
 void dae::StateMachineComponent::Update()
 {
 	int stateRequest = m_pStates[m_CurrentState]->Update(m_pGameObject);
-	if (stateRequest != m_CurrentState && m_pStates.size() > stateRequest)
+	if (stateRequest != m_CurrentState && int(m_pStates.size()) > stateRequest)
 	{
 		m_pStates[m_CurrentState]->Reset();
 		m_CurrentState = stateRequest;
@@ -35,7 +35,7 @@ void dae::StateMachineComponent::Update()
 
 void dae::StateMachineComponent::RequestState(int id)
 {
-	if (id != m_CurrentState && m_pStates.size() > id)
+	if (id != m_CurrentState && int(m_pStates.size()) > id)
 	{
 		m_pStates[m_CurrentState]->Reset();
 		m_CurrentState = id;

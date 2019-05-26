@@ -17,7 +17,7 @@ dae::GridRenderComponent::~GridRenderComponent()
 {
 }
 
-void dae::GridRenderComponent::SetTileId(GLuint index, GLuint id, bool checkSurroundings)
+void dae::GridRenderComponent::SetTileId(GLuint index, GLuint id, bool)
 {
 	if(index < m_Vertices.size())
 		m_Vertices[index].id = id;

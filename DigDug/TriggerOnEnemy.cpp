@@ -10,11 +10,11 @@ TriggerOnEnemy::TriggerOnEnemy(PlayerPumpState * pPumpState)
 {
 }
 
-void TriggerOnEnemy::Update(dae::CollisionBoxComponent * pOwner)
+void TriggerOnEnemy::Update(dae::CollisionBoxComponent * )
 {
 }
 
-void TriggerOnEnemy::Execute(dae::CollisionBoxComponent * pOther, dae::CollisionBoxComponent * pOwner)
+void TriggerOnEnemy::Execute(dae::CollisionBoxComponent * pOther, dae::CollisionBoxComponent * )
 {
 	auto* inflate = pOther->GetGameObject()->GetComponent<Inflatable*>();
 	if (inflate)

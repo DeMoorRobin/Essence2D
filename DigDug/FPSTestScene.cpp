@@ -97,7 +97,7 @@ void FPSTestScene::Initialize()
 		}
 	}
 	
-	auto* stone = Stone::CreateStone(m_pGridComp, this);
+	Stone::CreateStone(m_pGridComp, this);
 	
 
 	dae::InputManager::GetInstance().Assignbutton("Pump", dae::Button::ButtonA);

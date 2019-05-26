@@ -9,7 +9,7 @@ public:
 	Squish();
 	~Squish() = default;
 
-	void Update(dae::CollisionBoxComponent* pOwner) override {};
+	void Update(dae::CollisionBoxComponent* ) override {};
 	void Execute(dae::CollisionBoxComponent* pOther, dae::CollisionBoxComponent * pOwner) override;
 };
 

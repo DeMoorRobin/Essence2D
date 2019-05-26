@@ -6,7 +6,7 @@ Squish::Squish()
 {
 }
 
-void Squish::Execute(dae::CollisionBoxComponent * pOther, dae::CollisionBoxComponent * pOwner)
+void Squish::Execute(dae::CollisionBoxComponent * pOther, dae::CollisionBoxComponent * )
 {
 	SquishAble* squishable{ pOther->GetGameObject()->GetComponent<SquishAble*>() };
 	if (squishable)
