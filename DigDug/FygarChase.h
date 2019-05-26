@@ -1,16 +1,16 @@
 #pragma once
-#include "PookaMoveBehavior.h"
+#include "FygarMoveBehavior.h"
 namespace dae
 {
 	class GridRenderComponent;
 	class AnimationRenderComponent;
 	class GameObject;
 }
-class PookaChase final : public PookaMoveBehavior
+class FygarChase final : public FygarMoveBehavior
 {
 public:
-	PookaChase(dae::GridRenderComponent* pGrid, float size, float moveSpeed, dae::GameObject* pPlayer1, dae::GameObject* pPlayer2, dae::AnimationRenderComponent* pAnim);
-	~PookaChase();
+	FygarChase(dae::GridRenderComponent* pGrid, float size, float moveSpeed, dae::GameObject* pPlayer1, dae::GameObject* pPlayer2, dae::AnimationRenderComponent* pAnim);
+	~FygarChase();
 
 	int Update(dae::GameObject* pObj) override;
 	void Reset() override;

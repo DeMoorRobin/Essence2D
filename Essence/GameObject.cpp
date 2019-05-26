@@ -30,6 +30,8 @@ void dae::GameObject::AddComponent(BaseComponent* pComp)
 	{
 		if (m_pRenderComponent)
 		{
+			
+			
 			std::cout << "An object may only have one rendering component\n";
 			return;
 		}			

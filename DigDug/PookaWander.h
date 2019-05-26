@@ -3,13 +3,14 @@
 namespace dae
 {
 	class GridRenderComponent;
+	class AnimationRenderComponent;
 	class GameObject;
 }
 
 class PookaWander final : public PookaMoveBehavior
 {
 public:
-	PookaWander(dae::GridRenderComponent* pGrid, float size, float moveSpeed, dae::GameObject* pPlayer1, dae::GameObject* pPLayer2 = nullptr);
+	PookaWander(dae::GridRenderComponent* pGrid, float size, float moveSpeed, dae::GameObject* pPlayer1, dae::GameObject* pPLayer2 , dae::AnimationRenderComponent* pAnim);
 	int Update(dae::GameObject* pObj) override;
 	void Reset() override;
 	

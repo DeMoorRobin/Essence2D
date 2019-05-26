@@ -2,7 +2,6 @@
 #include "Pump.h"
 #include "GameObject.h"
 #include "ImageComponent.h"
-#include "Renderer.h"
 #include "RenderComponent.h"
 #include "PlayerBehavior.h"
 #include "CollisionBoxComponent.h"

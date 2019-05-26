@@ -1,35 +1,35 @@
 #include "pch.h"
-#include "PookaChase.h"
+#include "FygarChase.h"
 #include "GridHelper.h"
 #include "GridRenderComponent.h"
 #include "GameObject.h"
-#include "Pooka.h"
+#include "Fygar.h"
 #include "TransformComponent.h"
 #include "Time.h"
 #include "AnimationRenderComponent.h"
 
-PookaChase::PookaChase(dae::GridRenderComponent * pGrid, float size, float moveSpeed, dae::GameObject * pPlayer1, dae::GameObject * pPlayer2, dae::AnimationRenderComponent* pAnim)
-	:PookaMoveBehavior{ pGrid,size,moveSpeed,pPlayer1,pAnim,pPlayer2 }
-	,m_CurrentlySeesPlayer{}
+FygarChase::FygarChase(dae::GridRenderComponent * pGrid, float size, float moveSpeed, dae::GameObject * pPlayer1, dae::GameObject * pPlayer2, dae::AnimationRenderComponent* pAnim)
+	:FygarMoveBehavior{ pGrid,size,moveSpeed,pPlayer1,pAnim,pPlayer2 }
+	, m_CurrentlySeesPlayer{}
 {
 }
 
-PookaChase::~PookaChase()
+FygarChase::~FygarChase()
 {
 }
 
-int PookaChase::Update(dae::GameObject * pObj)
+int FygarChase::Update(dae::GameObject * pObj)
 {
 	//after respotting player first continue to cross section and then chase.
 	m_pAnim->SetCurrentAnimation(0, 0.2f, 0);
 	glm::vec2 startPos = pObj->GetTransform()->GetPosition();
 	m_CurrentlySeesPlayer = SearchForPlayer(pObj, m_pPlayer1);
-	if(m_CurrentlySeesPlayer)m_LastSpottedLocation = { m_pPlayer1->GetTransform()->GetPosition().x,m_pPlayer1->GetTransform()->GetPosition().y };
+	if (m_CurrentlySeesPlayer)m_LastSpottedLocation = { m_pPlayer1->GetTransform()->GetPosition().x,m_pPlayer1->GetTransform()->GetPosition().y };
 
 	if (!m_CurrentlySeesPlayer && m_pPlayer2)
 	{
 		m_CurrentlySeesPlayer = SearchForPlayer(pObj, m_pPlayer2);
-		if(m_CurrentlySeesPlayer) m_LastSpottedLocation = { m_pPlayer2->GetTransform()->GetPosition().x,m_pPlayer2->GetTransform()->GetPosition().y };
+		if (m_CurrentlySeesPlayer) m_LastSpottedLocation = { m_pPlayer2->GetTransform()->GetPosition().x,m_pPlayer2->GetTransform()->GetPosition().y };
 	}
 
 	m_LastSpottedLocation.x = dae::GridHelper::GetTileX(m_LastSpottedLocation.x)*dae::GridHelper::GetTileSize() + dae::GridHelper::GetTileSize() / 2.0f;
@@ -43,19 +43,19 @@ int PookaChase::Update(dae::GameObject * pObj)
 
 
 	if (GoToLocation(pObj))
-		return int(Pooka::PookaState::WANDER);
+		return int(Fygar::FygarState::WANDER);
 
 	if (startPos.x == pObj->GetTransform()->GetPosition().x && startPos.y == pObj->GetTransform()->GetPosition().y)
-		return int(Pooka::PookaState::WANDER);
+		return int(Fygar::FygarState::WANDER);
 
-	return int(Pooka::PookaState::CHASE);
+	return int(Fygar::FygarState::CHASE);
 }
 
-void PookaChase::Reset()
+void FygarChase::Reset()
 {
 }
 
-bool PookaChase::GoToLocation(dae::GameObject* pObj)
+bool FygarChase::GoToLocation(dae::GameObject* pObj)
 {
 	bool xReached{ false };
 	bool yReached{ false };
@@ -75,7 +75,7 @@ bool PookaChase::GoToLocation(dae::GameObject* pObj)
 				pObj->GetTransform()->Translate(0, float(m_MoveSpeed *dae::Time::GetInstance().GetDeltaTime()), 0);
 				m_LastDirection = Direction::UP;
 			}
-				
+
 			else xFailed = true;
 		}
 		else
@@ -85,7 +85,7 @@ bool PookaChase::GoToLocation(dae::GameObject* pObj)
 				pObj->GetTransform()->Translate(0,float( -m_MoveSpeed * dae::Time::GetInstance().GetDeltaTime()), 0);
 				m_LastDirection = Direction::DOWN;
 			}
-				
+
 			else xFailed = true;
 		}
 	}
@@ -95,10 +95,10 @@ bool PookaChase::GoToLocation(dae::GameObject* pObj)
 		{
 			if (CanMoveRight(pObj))
 			{
-				pObj->GetTransform()->Translate(float(m_MoveSpeed * dae::Time::GetInstance().GetDeltaTime()), 0);
+				pObj->GetTransform()->Translate(m_MoveSpeed * dae::Time::GetInstance().GetDeltaTime(), 0);
 				m_LastDirection = Direction::RIGHT;
 			}
-				
+
 			else yFailed = true;
 		}
 		else
@@ -111,6 +111,6 @@ bool PookaChase::GoToLocation(dae::GameObject* pObj)
 			else yFailed = true;
 		}
 	}
-	if ((xFailed||yReached) && (yFailed||xReached)) return true;
+	if ((xFailed || yReached) && (yFailed || xReached)) return true;
 	return false;
 }

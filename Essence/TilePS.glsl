@@ -3,12 +3,12 @@
 uniform sampler2D baseImage;
 
 in vec2 texCoord;
-out vec3 color;
+out vec4 color;
 
 void main()
 {
 	vec2 uv = texCoord;
 	uv.y = 1-texCoord.y;
-	color = texture(baseImage, texCoord).xyz;
+	color = texture(baseImage, texCoord);
 }
 

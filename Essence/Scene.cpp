@@ -1,7 +1,6 @@
 #include "MiniginPCH.h"
 #include "Scene.h"
 #include "GameObject.h"
-#include "Renderer.h"
 #include <algorithm>
 #include "RenderComponent.h"
 
@@ -31,21 +30,17 @@ void dae::Scene::BaseUpdate()
 
 	for (size_t i{}; i < m_pChildren.size(); ++i)
 	{
-		m_pChildren[i]->BaseUpdate();
-	}
+ 		m_pChildren[i]->BaseUpdate();
+ 	}
 }
 
 void dae::Scene::BaseDraw()
 {
-	auto er = glGetError();
-	if (er != GL_NO_ERROR)
-	{
-		std::cout << er << std::endl;
-	}
+
 	std::sort(m_RenderComponents.begin(), m_RenderComponents.end(), [](dae::RenderComponent& a, dae::RenderComponent& b) {return a.GetDepth() < b.GetDepth(); });
 	for (auto& render : m_RenderComponents)
 	{
-		render.Draw();
+		render.Draw(); 
 	}
 	Draw();
 }
@@ -63,14 +58,18 @@ void dae::Scene::RemoveChild(GameObject * pObj)
 		m_RenderComponents.erase(it2);
 
 	auto it = std::find(m_pChildren.begin(), m_pChildren.end(), pObj);
-	delete m_pChildren[it - m_pChildren.begin()];
-	m_pChildren.erase(it);
-
-	m_ObjToRenderMap.erase(pObj);
-	for (auto* pObj : m_pChildren)
+	if (it != m_pChildren.end())
 	{
-		pObj->RelinkComponents();
+		delete m_pChildren[it - m_pChildren.begin()];
+		m_pChildren.erase(it);
+
+		m_ObjToRenderMap.erase(pObj);
+		for (auto* pObj : m_pChildren)
+		{
+			pObj->RelinkComponents();
+		}
 	}
+	
 }
 
 dae::RenderComponent* dae::Scene::RequestRenderComponent(dae::GameObject * pObj)

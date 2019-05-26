@@ -16,7 +16,6 @@ dae::SceneManager::~SceneManager()
 
 void dae::SceneManager::AddScene(Scene* pScene)
 {
-	//for now
 	m_pActiveScene = pScene;
 }
 dae::Scene* dae::SceneManager::GetActiveScene()

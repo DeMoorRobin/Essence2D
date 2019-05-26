@@ -8,6 +8,7 @@
 #include "CollisionBoxComponent.h"
 #include "BlockOnPlayer.h"
 #include "Scene.h"
+#include "Squish.h"
 
 StoneBehavior::StoneBehavior(dae::GridRenderComponent* pGrid, dae::CollisionBoxComponent* pCollision)
 	:dae::BaseComponent{}
@@ -77,6 +78,7 @@ void StoneBehavior::Update()
 			m_pCollision->EnableStatic(false);
 			m_State = State::FALLING;
 			m_pCollision->ClearCommands();
+			m_pCollision->AddCommand(new Squish{});
 			float tileSize = 5.0f;
 			for (int i{ -2 }; i < 3; ++i)
 			{
@@ -113,6 +115,7 @@ void StoneBehavior::Update()
 			{
 				m_State = State::DESPAWNING;
 				m_ElapsedSec = 0;
+				m_pCollision->ClearCommands();
 
 			}
 		}

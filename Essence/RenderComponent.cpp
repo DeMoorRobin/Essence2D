@@ -1,13 +1,12 @@
 #include "MiniginPCH.h"
 #include "RenderComponent.h"
-#include "Renderer.h"
+
 #include "Texture2D.h"
 #include "TransformComponent.h"
 #include "Time.h"
 
 //#include <glm/gtc/matrix_transform.hpp>
 
-dae::Renderer* dae::RenderComponent::s_pRenderer{ &dae::Renderer::GetInstance() };
 
 dae::RenderComponent::RenderComponent()
 	:m_Texture{0,0,0}
@@ -18,7 +17,10 @@ dae::RenderComponent::RenderComponent()
 	,m_RenderType{}
 {
 }
-
+dae::RenderComponent::~RenderComponent()
+{
+	//glDeleteBuffers(1, &m_VertexBufferID);
+}
 
 void dae::RenderComponent::Draw()
 {
@@ -34,7 +36,6 @@ void dae::RenderComponent::Draw()
 	}
 	//glInvalidateBufferData(m_VertexBufferID);
 	//glInvalidateBufferData(m_IndexBufferID);
-	
 }
 
 //const SDL_Rect& dae::RenderComponent::GetImageDimensions() 

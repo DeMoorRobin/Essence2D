@@ -7,7 +7,6 @@
 #include "InputManager.h"
 #include "ResourceManager.h"
 #include "RenderComponent.h"
-#include "Renderer.h"
 #include "Texture2D.h"
 #include "GridRenderComponent.h"
 #include "ImageComponent.h"
@@ -17,8 +16,11 @@
 #include "CollisionBoxComponent.h"
 #include "Stone.h"
 #include "Pooka.h"
+#include "Fygar.h"
+#include "ScoreObserver.h"
 
 FPSTestScene::FPSTestScene()
+	:m_pScoreObserver{}
 {
 	Initialize();
 }
@@ -26,11 +28,7 @@ FPSTestScene::FPSTestScene()
 
 FPSTestScene::~FPSTestScene()
 {
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	glDeleteBuffers(1, &indexBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glDeleteBuffers(1, &vertexBuffer);
-
+	delete m_pScoreObserver;
 }
 
 void FPSTestScene::Update()
@@ -46,22 +44,26 @@ void FPSTestScene::Draw()
 
 void FPSTestScene::Initialize()
 {
-
-
 	auto* grid = new dae::GameObject{};
 	AddChild(grid);
 	m_pGridComp = new dae::GridRenderComponent{ "tileset.png", int(dae::GridHelper::GetRows()), int(dae::GridHelper::GetColumns()) };
 	grid->AddComponent(m_pGridComp);
-	//
-	//
+
+	auto* text = new dae::GameObject{};
+	AddChild(text);
+	auto* score = new dae::TextComponent{ "0","../Data/Lingua.otf",20 };
+	text->AddComponent(score);
+	text->GetTransform()->Translate(600.0f, 400.0f);
+
 	auto* player = Player::CreatePlayer(m_pGridComp,this);
 	
+	m_pScoreObserver = new ScoreObserver{ score };
 
-	
-	auto* pooka = Pooka::CreatePooka(m_pGridComp,this,player,nullptr);
-	pooka->GetTransform()->SetPosition({402.5f,260.0f,0.4f});
-	
-	
+	auto* pooka = Pooka::CreatePooka(m_pGridComp,this,m_pScoreObserver,player,nullptr);
+	pooka->GetTransform()->SetPosition({402.5f,235.0f,0.4f});
+	//
+	auto * fygar = Fygar::CreateFygar(m_pGridComp, this,m_pScoreObserver, player);
+	fygar->GetTransform()->SetPosition({ 402.5f,260.0f,0.4f });
 	float tileSize{ dae::GridHelper::GetTileSize() };
 	for (int i{}; i < 27; ++i)
 	{

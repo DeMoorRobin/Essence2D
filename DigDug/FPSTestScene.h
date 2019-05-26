@@ -2,7 +2,8 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include "GridRenderComponent.h"
-
+#include "ScoreObserver.h"
+class ScoreObserver;
 class FPSTestScene final : public dae::Scene
 {
 	struct Vertex
@@ -21,13 +22,10 @@ protected:
 
 private:
 	void Initialize();
-	GLuint vertexBuffer;
-	GLuint programID;
-	GLuint indexBuffer;
 
 	dae::GameObject* m_pPlayer;
 	dae::GridRenderComponent* m_pGridComp;
-	
+	ScoreObserver* m_pScoreObserver;
 };
 
 

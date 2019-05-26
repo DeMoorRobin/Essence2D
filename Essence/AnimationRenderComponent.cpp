@@ -22,9 +22,10 @@ dae::AnimationRenderComponent::AnimationRenderComponent(const std::string& textu
 
 dae::AnimationRenderComponent::~AnimationRenderComponent()
 {
-	for (auto* f : m_pFrames)
+	for (size_t i{}; i < m_pFrames.size(); ++i)
 	{
-		delete f;
+		delete m_pFrames[i];
+		m_pFrames[i] = nullptr;
 	}
 }
 
@@ -32,6 +33,7 @@ void dae::AnimationRenderComponent::AddAnimation(std::vector<Frame>* pAnimation,
 {
 	m_pFrames.push_back(pAnimation);
 	m_IdToAnimMap[id] = m_pFrames.size() - 1;
+	
 }
 
 void dae::AnimationRenderComponent::SetCurrentAnimation(int id, float timePerFrame, int startFrame, bool restarOnSame)
@@ -47,7 +49,8 @@ void dae::AnimationRenderComponent::SetCurrentAnimation(int id, float timePerFra
 		}
 	}
 	else std::cout << "animation id out of range \n";
-		
+	
+
 }
 
 
@@ -67,10 +70,24 @@ void dae::AnimationRenderComponent::Initialize()
 	center.push_back(GLfloat(0));
 	center.push_back(GLfloat(0));
 	center.push_back(GLfloat(0));
+	auto er = glGetError();
+	if (er != GL_NO_ERROR)
+	{
+		std::cout << er << std::endl;
+	}
+
 	glGenBuffers(1, &m_VertexID);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VertexID);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * center.size(), center.data(), GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * center.size(), center.data(), GL_STATIC_DRAW);
 	m_pGameObject->GetRenderComponent()->SetBuffers(m_VertexID, 0);
+
+
+	er = glGetError();
+	if (er != GL_NO_ERROR)
+	{
+		std::cout << er << std::endl;
+	}
+
 }
 
 void dae::AnimationRenderComponent::Update()
@@ -80,11 +97,16 @@ void dae::AnimationRenderComponent::Update()
 	{
 		m_ElapsedTime = 0;
 		++m_CurrentFrame;
-		if (m_CurrentFrame >= m_pFrames[m_CurrentAnimation]->size())
+		if (size_t(m_CurrentFrame) >= m_pFrames[m_CurrentAnimation]->size())
 			m_CurrentFrame = 0;
 	}
 
-	
+	auto er = glGetError();
+	if (er != GL_NO_ERROR)
+	{
+		std::cout << er << std::endl;
+	}
+
 	std::vector<GLfloat> center{};
 	center.push_back(m_pGameObject->GetTransform()->GetPosition().x);
 	center.push_back(m_pGameObject->GetTransform()->GetPosition().y);
@@ -95,7 +117,12 @@ void dae::AnimationRenderComponent::Update()
 	center.push_back(GLfloat(m_pFrames[m_CurrentAnimation]->at(m_CurrentFrame).bottom));
 	center.push_back(GLfloat(m_pFrames[m_CurrentAnimation]->at(m_CurrentFrame).width));
 	center.push_back(GLfloat(m_pFrames[m_CurrentAnimation]->at(m_CurrentFrame).height));
-
 	glBindBuffer(GL_ARRAY_BUFFER, m_VertexID);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(GLfloat)*center.size(), center.data());
+
+	 er = glGetError();
+	if (er != GL_NO_ERROR)
+	{
+		std::cout << er << std::endl;
+	}
 }

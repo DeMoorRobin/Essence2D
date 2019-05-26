@@ -1,26 +1,28 @@
 #include "pch.h"
-#include "PookaMoveBehavior.h"
+#include "FygarMoveBehavior.h"
+
+
 #include "GameObject.h"
 #include "GridHelper.h"
 #include "GridRenderComponent.h"
 #include "TransformComponent.h"
 #include "AnimationRenderComponent.h"
 
-PookaMoveBehavior::PookaMoveBehavior(dae::GridRenderComponent* pGrid, float size, float moveSpeed, dae::GameObject* pPlayer1, dae::AnimationRenderComponent* pAnim, dae::GameObject* pPlayer2)
+FygarMoveBehavior::FygarMoveBehavior(dae::GridRenderComponent* pGrid, float size, float moveSpeed, dae::GameObject* pPlayer1, dae::AnimationRenderComponent* pAnim, dae::GameObject* pPlayer2)
 	:m_LastDirection{ Direction::NONE }
-	,m_pGrid{ pGrid }
-	,m_HalfSizePlus{ size / 2.0f + dae::GridHelper::GetTileSize() / 3.0f }
-	,m_HalfSize{ size / 2.5f }
-	,m_MoveSpeed{ moveSpeed }
-	,m_pPlayer1{ pPlayer1 }
-	,m_pPlayer2{ pPlayer2 }
-	,m_pAnim{pAnim}
+	, m_pGrid{ pGrid }
+	, m_HalfSizePlus{ size / 2.0f + dae::GridHelper::GetTileSize() / 3.0f }
+	, m_HalfSize{ size / 2.5f }
+	, m_MoveSpeed{ moveSpeed }
+	, m_pPlayer1{ pPlayer1 }
+	, m_pPlayer2{ pPlayer2 }
+	, m_pAnim{ pAnim }
 {
 }
 
 
 
-PookaMoveBehavior::Direction PookaMoveBehavior::ChooseRandomDirection(dae::GameObject * pObj)
+FygarMoveBehavior::Direction FygarMoveBehavior::ChooseRandomDirection(dae::GameObject * pObj)
 {
 	Direction startDir = Direction(rand() % 4);
 	Direction checkDir = startDir;
@@ -29,16 +31,16 @@ PookaMoveBehavior::Direction PookaMoveBehavior::ChooseRandomDirection(dae::GameO
 	{
 		switch (checkDir)
 		{
-		case PookaMoveBehavior::Direction::UP:
+		case FygarMoveBehavior::Direction::UP:
 			dirFree = CanMoveUp(pObj);
 			break;
-		case PookaMoveBehavior::Direction::DOWN:
+		case FygarMoveBehavior::Direction::DOWN:
 			dirFree = CanMoveDown(pObj);
 			break;
-		case PookaMoveBehavior::Direction::LEFT:
+		case FygarMoveBehavior::Direction::LEFT:
 			dirFree = CanMoveLeft(pObj);
 			break;
-		case PookaMoveBehavior::Direction::RIGHT:
+		case FygarMoveBehavior::Direction::RIGHT:
 			dirFree = CanMoveRight(pObj);
 			break;
 		default:
@@ -52,7 +54,7 @@ PookaMoveBehavior::Direction PookaMoveBehavior::ChooseRandomDirection(dae::GameO
 	else return checkDir;
 }
 
-bool PookaMoveBehavior::SearchForPlayer(dae::GameObject * pObj, dae::GameObject* pPlayer)
+bool FygarMoveBehavior::SearchForPlayer(dae::GameObject * pObj, dae::GameObject* pPlayer)
 {
 	if (abs(pObj->GetTransform()->GetPosition().x - pPlayer->GetTransform()->GetPosition().x) <= dae::GridHelper::GetTileSize() / 2.0f)
 	{
@@ -119,7 +121,7 @@ bool PookaMoveBehavior::SearchForPlayer(dae::GameObject * pObj, dae::GameObject*
 	else return false;
 }
 
-bool PookaMoveBehavior::CanMoveUp(dae::GameObject* pObj)
+bool FygarMoveBehavior::CanMoveUp(dae::GameObject* pObj)
 {
 	bool leftUpFree = m_pGrid->IsTileEmpty(dae::GridHelper::GetTile(pObj->GetTransform()->GetPosition().x - m_HalfSize, pObj->GetTransform()->GetPosition().y + m_HalfSizePlus));
 	bool rightUpFree = m_pGrid->IsTileEmpty(dae::GridHelper::GetTile(pObj->GetTransform()->GetPosition().x + m_HalfSize, pObj->GetTransform()->GetPosition().y + m_HalfSizePlus));
@@ -132,7 +134,7 @@ bool PookaMoveBehavior::CanMoveUp(dae::GameObject* pObj)
 	return leftUpFree && rightUpFree;
 }
 
-bool PookaMoveBehavior::CanMoveLeft(dae::GameObject* pObj)
+bool FygarMoveBehavior::CanMoveLeft(dae::GameObject* pObj)
 {
 	//GLuint tileId = dae::GridHelper::GetTile(pObj->GetTransform()->GetPosition().x - m_HalfSizePlus, pObj->GetTransform()->GetPosition().y + m_HalfSizePlus);
 	//m_pGrid->SetTileId(tileId, 3);
@@ -145,7 +147,7 @@ bool PookaMoveBehavior::CanMoveLeft(dae::GameObject* pObj)
 	//return m_pGrid->IsTileEmpty(dae::GridHelper::GetTile(pObj->GetTransform()->GetPosition().x - m_HalfSizePlus, pObj->GetTransform()->GetPosition().y));
 }
 
-bool PookaMoveBehavior::CanMoveDown(dae::GameObject* pObj)
+bool FygarMoveBehavior::CanMoveDown(dae::GameObject* pObj)
 {
 	bool leftDownFree = m_pGrid->IsTileEmpty(dae::GridHelper::GetTile(pObj->GetTransform()->GetPosition().x - m_HalfSize, pObj->GetTransform()->GetPosition().y - m_HalfSizePlus));
 	bool rightDownFree = m_pGrid->IsTileEmpty(dae::GridHelper::GetTile(pObj->GetTransform()->GetPosition().x + m_HalfSize, pObj->GetTransform()->GetPosition().y - m_HalfSizePlus));
@@ -153,7 +155,7 @@ bool PookaMoveBehavior::CanMoveDown(dae::GameObject* pObj)
 	//return  m_pGrid->IsTileEmpty(dae::GridHelper::GetTile(pObj->GetTransform()->GetPosition().x , pObj->GetTransform()->GetPosition().y - m_HalfSizePlus));
 }
 
-bool PookaMoveBehavior::CanMoveRight(dae::GameObject* pObj)
+bool FygarMoveBehavior::CanMoveRight(dae::GameObject* pObj)
 {
 	bool rightUpFree = m_pGrid->IsTileEmpty(dae::GridHelper::GetTile(pObj->GetTransform()->GetPosition().x + m_HalfSizePlus, pObj->GetTransform()->GetPosition().y + m_HalfSize));
 	bool rightDownFree = m_pGrid->IsTileEmpty(dae::GridHelper::GetTile(pObj->GetTransform()->GetPosition().x + m_HalfSizePlus, pObj->GetTransform()->GetPosition().y - m_HalfSize));
@@ -161,7 +163,7 @@ bool PookaMoveBehavior::CanMoveRight(dae::GameObject* pObj)
 	//return m_pGrid->IsTileEmpty(dae::GridHelper::GetTile(pObj->GetTransform()->GetPosition().x + m_HalfSizePlus, pObj->GetTransform()->GetPosition().y ));
 }
 
-bool PookaMoveBehavior::IsOnCross(dae::GameObject * pObj)
+bool FygarMoveBehavior::IsOnCross(dae::GameObject * pObj)
 {
 	return ((dae::GridHelper::GetTileY(pObj->GetTransform()->GetPosition().y) - 3) % 7 == 0)
 		&& ((dae::GridHelper::GetTileX(pObj->GetTransform()->GetPosition().x) - 3) % 7 == 0);

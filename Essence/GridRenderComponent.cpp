@@ -51,6 +51,12 @@ void dae::GridRenderComponent::Initialize()
 		}
 	}
 
+	auto er = glGetError();
+	if (er != GL_NO_ERROR)
+	{
+		std::cout << er << std::endl;
+	}
+
 	//vertexBuffer
 	glGenBuffers(1, &m_VertexID);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VertexID);
@@ -67,13 +73,32 @@ void dae::GridRenderComponent::Initialize()
 	m_pGameObject->GetRenderComponent()->SetRenderType(dae::RenderType::GRID);
 	auto t = dae::ResourceManager::GetInstance().LoadTexture(m_TextureFile);
 	m_pGameObject->GetRenderComponent()->SetTexture(t);
+
+	er = glGetError();
+	if (er != GL_NO_ERROR)
+	{
+		std::cout << er << std::endl;
+	}
+
 }
 
 void dae::GridRenderComponent::Update()
 {
-	
+	auto er = glGetError();
+	if (er != GL_NO_ERROR)
+	{
+		std::cout << er << std::endl;
+	}
+
 	glBindBuffer(GL_ARRAY_BUFFER, m_VertexID);
 	glBufferSubData(GL_ARRAY_BUFFER, 0 , m_Vertices.size() * sizeof(Vertex), m_Vertices.data());
+
+
+	er = glGetError();
+	if (er != GL_NO_ERROR)
+	{
+		std::cout << er << std::endl;
+	}
 
 	//m_pGameObject->GetRenderComponent()->SetBuffers(m_VertexID, m_IndexID);
 }

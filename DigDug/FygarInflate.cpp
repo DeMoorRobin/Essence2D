@@ -1,22 +1,22 @@
 #include "pch.h"
-#include "PookaInflate.h"
+#include "FygarInflate.h"
 #include "Time.h"
 #include "GameObject.h"
 #include "Scene.h"
-#include "Pooka.h"
+#include "Fygar.h"
 #include "AnimationRenderComponent.h"
 #include "TransformComponent.h"
 #include "Observer.h"
 
-PookaInflate::PookaInflate(dae::AnimationRenderComponent* pAnim, dae::Observer* pObserver)
+FygarInflate::FygarInflate(dae::AnimationRenderComponent* pAnim, dae::Observer* pObserver)
 	:m_InflateTime{}
-	,m_WasPumped{}
-	,m_pAnim{pAnim}
+	, m_WasPumped{}
+	, m_pAnim{ pAnim }
 	,m_pObserver{pObserver}
 {
 }
 
-int PookaInflate::Update(dae::GameObject * pObj)
+int FygarInflate::Update(dae::GameObject * pObj)
 {
 	if (m_WasPumped)
 	{
@@ -28,7 +28,7 @@ int PookaInflate::Update(dae::GameObject * pObj)
 	{
 		m_InflateTime -= dae::Time::GetInstance().GetDeltaTime();
 		if (m_InflateTime <= -0.3f)
-			return int(Pooka::PookaState::WANDER);
+			return int(Fygar::FygarState::WANDER);
 	}
 
 	if (m_InflateTime < 0.8f)
@@ -49,14 +49,15 @@ int PookaInflate::Update(dae::GameObject * pObj)
 
 	if (m_InflateTime >= 2.4f)
 	{
-		m_pObserver->OnNotify(pObj, dae::Event::POOKA_INFLATED);
+		m_pObserver->OnNotify(pObj, dae::Event::FYGAR_INFLATE);
 		pObj->GetScene()->RemoveChild(pObj);
 		return 0;
 	}
-	return int(Pooka::PookaState::INFLATE);
+
+	return int(Fygar::FygarState::INFLATE);
 }
 
-void PookaInflate::Reset()
+void FygarInflate::Reset()
 {
 	m_WasPumped = false;
 	m_InflateTime = 0;

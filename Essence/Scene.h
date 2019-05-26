@@ -10,7 +10,7 @@ namespace dae
 	{
 	public:
 		Scene();
-		~Scene();
+		virtual ~Scene();
 
 		void BaseUpdate();
 		void BaseDraw();

@@ -1,6 +1,5 @@
 #include "MiniginPCH.h"
 #include "TextComponent.h"
-#include "Renderer.h"
 #include "Font.h"
 #include "Time.h"
 #include <string>
@@ -12,9 +11,11 @@ dae::TextComponent::TextComponent(const std::string& text, const std::string& fo
 	:BaseComponent{true}
 	,m_pFont{ nullptr }
 	,m_Text{ text }
+	,m_VertexID{}
+	,m_Texture{}
+	,m_HasTextChanged{}
 {
 	m_pFont = new dae::Font(fontPath, fontSize);
-	Initialize();
 }
 
 
@@ -27,36 +28,70 @@ dae::TextComponent::~TextComponent()
 
 void dae::TextComponent::Initialize()
 {
-	//const SDL_Color color = { 255,255,255 };
-	//const auto surf = TTF_RenderText_Blended(m_pFont->GetFont(), m_Text.c_str(), color);
-	//if (surf == nullptr)
-	//{
-	//	throw std::runtime_error(std::string("Render text failed: ") + SDL_GetError());
-	//}
-	//m_pTexture = SDL_CreateTextureFromSurface(dae::Renderer::GetInstance().GetSDLRenderer(), surf);
-	//if (m_pTexture == nullptr)
-	//{
-	//	throw std::runtime_error(std::string("Create text texture from surface failed: ") + SDL_GetError());
-	//}
-	//SDL_FreeSurface(surf);
-}
-void dae::TextComponent::Update()
-{
-	m_Text = std::to_string(Time::GetInstance().GetFPS());
+	m_pGameObject->GetRenderComponent()->SetRenderType(dae::RenderType::SPRITE);
+	m_pGameObject->GetRenderComponent()->SetProgram(dae::ResourceManager::GetInstance().LoadShaders("../Essence/spriteVS.glsl", "../Essence/spritePS.glsl", "../Essence/spriteGS.glsl"));
+
 	m_Texture.ReleaseID();
 	m_Texture = ResourceManager::GetInstance().LoadStringTexture(m_pFont->GetFont(), m_Text);
 	m_pGameObject->GetRenderComponent()->SetTexture(m_Texture);
+
+	std::vector<GLfloat> center{};
+	center.push_back(m_pGameObject->GetTransform()->GetPosition().x);
+	center.push_back(m_pGameObject->GetTransform()->GetPosition().y);
+	center.push_back(m_pGameObject->GetTransform()->GetPosition().z);
+	center.push_back(m_Texture.GetWidth() * m_pGameObject->GetTransform()->GetScale().x);
+	center.push_back(m_Texture.GetHeight() * m_pGameObject->GetTransform()->GetScale().y);
+	center.push_back(GLfloat(0));
+	center.push_back(GLfloat(0));
+	center.push_back(GLfloat(1.0f));
+	center.push_back(GLfloat(1.0f));
+	auto er = glGetError();
+	if (er != GL_NO_ERROR)
+	{
+		std::cout << er << std::endl;
+	}
+
+	glGenBuffers(1, &m_VertexID);
+	glBindBuffer(GL_ARRAY_BUFFER, m_VertexID);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * center.size(), center.data(), GL_STATIC_DRAW);
+	m_pGameObject->GetRenderComponent()->SetBuffers(m_VertexID, 0);
+
+	er = glGetError();
+	if (er != GL_NO_ERROR)
+	{
+		std::cout << er << std::endl;
+	}
+
+}
+void dae::TextComponent::Update()
+{
+	if (m_HasTextChanged)
+	{
+		m_Text = std::to_string(Time::GetInstance().GetFPS());
+		m_Texture.ReleaseID();
+		m_Texture = ResourceManager::GetInstance().LoadStringTexture(m_pFont->GetFont(), m_Text);
+		m_pGameObject->GetRenderComponent()->SetTexture(m_Texture);
+		m_HasTextChanged = false;
+	}
+	
+	std::vector<GLfloat> center{};
+	center.push_back(m_pGameObject->GetTransform()->GetPosition().x);
+	center.push_back(m_pGameObject->GetTransform()->GetPosition().y);
+	center.push_back(m_pGameObject->GetTransform()->GetPosition().z);
+	center.push_back(m_Texture.GetWidth() * m_pGameObject->GetTransform()->GetScale().x);
+	center.push_back(m_Texture.GetHeight() * m_pGameObject->GetTransform()->GetScale().y);
+	center.push_back(GLfloat(0));
+	center.push_back(GLfloat(0));
+	center.push_back(GLfloat(1.0f));
+	center.push_back(GLfloat(1.0f));
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_VertexID);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(GLfloat)*center.size(), center.data());
 	
 }
-//void dae::TextComponent::Draw()
-//{
-//	if (m_pTexture != nullptr)
-//	{
-//		dae::Renderer::GetInstance().RenderTexture(m_pTexture, 0.0f,0.0f);
-//	}
-//}
 
 void dae::TextComponent::SetText(const std::string& text)
 {
 	m_Text = text;
+	m_HasTextChanged = true;
 }

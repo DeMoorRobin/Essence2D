@@ -27,6 +27,9 @@
     <Filter Include="Behaviors\Player">
       <UniqueIdentifier>{ae09bf86-950d-4a52-9bbd-e2fe09f0f172}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Behaviors\Fygar">
+      <UniqueIdentifier>{509b0fd1-a41b-4ac2-b0e5-7b4ab2e2bd43}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -83,6 +86,33 @@
     <ClInclude Include="PookaInflate.h">
       <Filter>Behaviors\Pooka</Filter>
     </ClInclude>
+    <ClInclude Include="SquishAble.h">
+      <Filter>CustomComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Squish.h">
+      <Filter>CustomCollisionCommand</Filter>
+    </ClInclude>
+    <ClInclude Include="SquishState.h">
+      <Filter>Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="FygarMoveBehavior.h">
+      <Filter>Behaviors\Fygar</Filter>
+    </ClInclude>
+    <ClInclude Include="FygarChase.h">
+      <Filter>Behaviors\Fygar</Filter>
+    </ClInclude>
+    <ClInclude Include="FygarWander.h">
+      <Filter>Behaviors\Fygar</Filter>
+    </ClInclude>
+    <ClInclude Include="FygarInflate.h">
+      <Filter>Behaviors\Fygar</Filter>
+    </ClInclude>
+    <ClInclude Include="Fygar.h">
+      <Filter>prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreObserver.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -138,6 +168,30 @@
     </ClCompile>
     <ClCompile Include="PookaInflate.cpp">
       <Filter>Behaviors\Pooka</Filter>
+    </ClCompile>
+    <ClCompile Include="Squish.cpp">
+      <Filter>CustomCollisionCommand</Filter>
+    </ClCompile>
+    <ClCompile Include="SquishState.cpp">
+      <Filter>Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="FygarMoveBehavior.cpp">
+      <Filter>Behaviors\Fygar</Filter>
+    </ClCompile>
+    <ClCompile Include="FygarChase.cpp">
+      <Filter>Behaviors\Fygar</Filter>
+    </ClCompile>
+    <ClCompile Include="FygarWander.cpp">
+      <Filter>Behaviors\Fygar</Filter>
+    </ClCompile>
+    <ClCompile Include="FygarInflate.cpp">
+      <Filter>Behaviors\Fygar</Filter>
+    </ClCompile>
+    <ClCompile Include="Fygar.cpp">
+      <Filter>prefabs</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreObserver.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

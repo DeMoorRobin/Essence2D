@@ -6,11 +6,11 @@ namespace dae
 	class AnimationRenderComponent;
 	class GameObject;
 }
-class PookaMoveBehavior : public dae::State
+class FygarMoveBehavior : public dae::State
 {
 public:
-	PookaMoveBehavior(dae::GridRenderComponent* pGrid, float size, float moveSpeed, dae::GameObject* pPlayer1, dae::AnimationRenderComponent* pAnim, dae::GameObject* pPlayer2 = nullptr);
-	virtual ~PookaMoveBehavior() = default;
+	FygarMoveBehavior(dae::GridRenderComponent* pGrid, float size, float moveSpeed, dae::GameObject* pPlayer1, dae::AnimationRenderComponent* pAnim, dae::GameObject* pPlayer2 = nullptr);
+	virtual ~FygarMoveBehavior() = default;
 
 	virtual int Update(dae::GameObject* pObj) = 0;
 	virtual void Reset() = 0;
@@ -19,6 +19,8 @@ protected:
 	{
 		UP, LEFT, RIGHT, DOWN, NONE
 	};
+
+
 	Direction m_LastDirection;
 	dae::GridRenderComponent* m_pGrid;
 	dae::GameObject* m_pPlayer1;
@@ -35,6 +37,5 @@ protected:
 	bool CanMoveDown(dae::GameObject* pObj);
 	bool CanMoveRight(dae::GameObject* pObj);
 	bool IsOnCross(dae::GameObject* pObj);
-
 };
 

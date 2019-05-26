@@ -18,7 +18,7 @@ namespace dae
 	{
 	public:
 		RenderComponent();
-
+		~RenderComponent();
 		//const SDL_Rect& GetImageDimensions();
 
 		friend bool operator== (const RenderComponent &lhs, const RenderComponent &rhs)
@@ -39,7 +39,6 @@ namespace dae
 	private:
 		TransformComponent* m_pTransformComponent;
 		Texture2D m_Texture;
-		static Renderer* s_pRenderer;
 
 		GLuint m_ProgramID,m_VertexBufferID,m_IndexBufferID;
 		GLuint m_IndexCount;

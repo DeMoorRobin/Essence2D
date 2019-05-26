@@ -4,7 +4,6 @@
 #include <thread>
 #include "InputManager.h"
 #include "SceneManager.h"
-#include "Renderer.h"
 #include "ResourceManager.h"
 #include <SDL.h>
 #include "GameObject.h"
@@ -51,10 +50,9 @@ dae::SceneManager* dae::Minigin::Initialize()
 	glewExperimental = GL_TRUE;
 
 	auto test = glewInit();
-	if (test == GLEW_OK)std::cout << "plop\n";
+	if (test == GLEW_OK)std::cout << "Glew ok\n";
 	
 
-	Renderer::GetInstance().Init(window);
 	SDL_GL_SetSwapInterval(0);
 
 	m_pSceneManager = new dae::SceneManager{};
@@ -74,7 +72,8 @@ dae::SceneManager* dae::Minigin::Initialize()
 	glDisable(GL_DEPTH_TEST);
 	glDepthMask(false);
 	glDepthFunc(GL_NEVER);
-
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	ResourceManager::GetInstance().Init("../Data/");
 	return m_pSceneManager;
 }
@@ -107,7 +106,6 @@ void dae::Minigin::LoadGame() const
 
 void dae::Minigin::Cleanup()
 {
-	Renderer::GetInstance().Destroy();
 	SDL_GL_DeleteContext(m_pContext);
 	SDL_DestroyWindow(window);
 	delete m_pSceneManager;

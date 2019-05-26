@@ -26,6 +26,6 @@ void dae::BlockMovement::Execute(CollisionBoxComponent * pOther, CollisionBoxCom
 {
 	if (pOther->IsStatic())
 	{
-		pOwner->GetGameObject()->GetTransform()->SetPosition(m_PrevPos);
+ 		pOwner->GetGameObject()->GetTransform()->SetPosition(m_PrevPos);
 	}
 }

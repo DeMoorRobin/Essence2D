@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "Player.h"
 #include "ImageComponent.h"
-#include "Renderer.h"
 #include "RenderComponent.h"
 #include "PlayerBehavior.h"
 #include "GridRenderComponent.h"
@@ -71,7 +70,7 @@ dae::GameObject * Player::CreatePlayer(dae::GridRenderComponent* pGrid, dae::Sce
 	anim->AddAnimation(digDown, int(PlayerMoveBehavior::Animation::DIGDOWN));
 	anim->SetCurrentAnimation(int(PlayerMoveBehavior::Animation::RUNRIGHT), 0.3f, 0, true);
 
-	//player->AddComponent(new PlayerBehavior{pGrid,anim});
+	 
 
 	auto* collision = new dae::CollisionBoxComponent{5,5,false,false};
 	player->AddComponent(collision);

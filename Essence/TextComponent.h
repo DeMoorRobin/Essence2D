@@ -19,6 +19,8 @@ namespace dae
 		dae::Font* m_pFont;
 		std::string m_Text;
 		Texture2D m_Texture;
+		bool m_HasTextChanged;
+		GLuint m_VertexID, m_ProgramID;
 	};
 }
 

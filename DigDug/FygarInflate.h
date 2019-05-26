@@ -6,12 +6,11 @@ namespace dae
 	class GameObject;
 	class Observer;
 }
-class PookaInflate final : public dae::State
+class FygarInflate final : public dae::State
 {
 public:
-	PookaInflate(dae::AnimationRenderComponent* pAnim, dae::Observer* pObserver);
-	~PookaInflate() = default;
-
+	FygarInflate(dae::AnimationRenderComponent* pAnim, dae::Observer* pObserver);
+	~FygarInflate() = default;
 	void Inflate() { m_WasPumped = true; };
 
 	int Update(dae::GameObject* pObj) override;

@@ -84,6 +84,7 @@ int PlayerPumpState::Update(dae::GameObject * pObj)
 	if (m_PumpAliveTime > 0.5f || m_TimeSinceTrigger > 0.2f)
 	{
 		m_pScene->RemoveChild(m_pPump);
+		m_pPump = nullptr;
 		return int(Player::PlayerState::Moving);
 	}
 
@@ -99,8 +100,14 @@ int PlayerPumpState::Update(dae::GameObject * pObj)
 
 void PlayerPumpState::Reset()
 {
+	if (m_pPump)
+	{
+		m_pScene->RemoveChild(m_pPump);
+	}
 	m_HasSpawnedPump = false;
 	m_PumpAliveTime = 0;
 	m_HasHitEnemy = false;
 	m_TimeSinceTrigger = 0;
+
 }
+ 

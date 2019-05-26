@@ -161,7 +161,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Action.h" />
     <ClInclude Include="AnimationRenderComponent.h" />
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="BlockMovement.h" />
@@ -176,9 +175,9 @@
     <ClInclude Include="json.hpp" />
     <ClInclude Include="Minigin.h" />
     <ClInclude Include="MiniginPCH.h" />
+    <ClInclude Include="Observer.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="RenderComponent.h" />
-    <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
@@ -219,7 +218,6 @@
     </ClCompile>
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
-    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />

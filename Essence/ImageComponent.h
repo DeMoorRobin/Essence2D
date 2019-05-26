@@ -15,6 +15,7 @@ namespace dae
 		glm::vec4 m_UVSourceRect;
 		float m_DefaultXSize, m_DefaultYSize;
 		GLuint m_VertexID, m_ProgramID;
+	
 	};
 }
 

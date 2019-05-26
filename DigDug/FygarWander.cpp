@@ -1,31 +1,32 @@
 #include "pch.h"
-#include "PookaWander.h"
+#include "FygarWander.h"
+#include "Fygar.h"
 #include "GameObject.h"
 #include "TransformComponent.h"
 #include "GridHelper.h"
 #include "GridRenderComponent.h"
 #include "Time.h"
-#include "Pooka.h"
+
 #include "AnimationRenderComponent.h"
 
 
-PookaWander::PookaWander(dae::GridRenderComponent* pGrid, float size, float moveSpeed, dae::GameObject* pPlayer1, dae::GameObject* pPlayer2 , dae ::AnimationRenderComponent* pAnim)
-	:PookaMoveBehavior{pGrid,size,moveSpeed,pPlayer1,pAnim,pPlayer2}
-	,m_TurnCooldown{0.1f}
-	,m_TimeSinceLastTurn{}
+FygarWander::FygarWander(dae::GridRenderComponent* pGrid, float size, float moveSpeed, dae::GameObject* pPlayer1, dae::GameObject* pPlayer2, dae::AnimationRenderComponent* pAnim)
+	:FygarMoveBehavior{ pGrid,size,moveSpeed,pPlayer1,pAnim,pPlayer2 }
+	, m_TurnCooldown{ 0.1f }
+	, m_TimeSinceLastTurn{}
 {
 }
 
-int PookaWander::Update(dae::GameObject * pObj)
-{	
+int FygarWander::Update(dae::GameObject * pObj)
+{
 	m_pAnim->SetCurrentAnimation(0, 0.2f, 0);
-	if(SearchForPlayer(pObj, m_pPlayer1))
-		return int(Pooka::PookaState::CHASE);
+	if (SearchForPlayer(pObj, m_pPlayer1))
+		return int(Fygar::FygarState::CHASE);
 	if (m_pPlayer2)
-		if(SearchForPlayer(pObj,m_pPlayer2))
-			return int(Pooka::PookaState::CHASE);
+		if (SearchForPlayer(pObj, m_pPlayer2))
+			return int(Fygar::FygarState::CHASE);
 
-	if (m_LastDirection == Direction::NONE )
+	if (m_LastDirection == Direction::NONE)
 	{
 		m_LastDirection = ChooseRandomDirection(pObj);
 		m_TimeSinceLastTurn = 0;
@@ -36,7 +37,7 @@ int PookaWander::Update(dae::GameObject * pObj)
 	m_TimeSinceLastTurn += euh;
 
 
-	if (m_TimeSinceLastTurn >= m_TurnCooldown  && IsOnCross(pObj))
+	if (m_TimeSinceLastTurn >= m_TurnCooldown && IsOnCross(pObj))
 	{
 		int testCount = 7;
 		Direction newDir = ChooseRandomDirection(pObj);
@@ -49,25 +50,25 @@ int PookaWander::Update(dae::GameObject * pObj)
 		m_TimeSinceLastTurn = 0;
 	}
 
-	
+
 	switch (m_LastDirection)
 	{
-	case PookaWander::Direction::UP:
-		if(CanMoveUp(pObj))
+	case FygarWander::Direction::UP:
+		if (CanMoveUp(pObj))
 			pObj->GetTransform()->Translate(0, m_MoveSpeed *euh, 0);
 		else m_LastDirection = Direction::NONE;
 		break;
-	case PookaWander::Direction::DOWN:
+	case FygarWander::Direction::DOWN:
 		if (CanMoveDown(pObj))
 			pObj->GetTransform()->Translate(0, -m_MoveSpeed * euh, 0);
 		else m_LastDirection = Direction::NONE;
 		break;
-	case PookaWander::Direction::LEFT:
+	case FygarWander::Direction::LEFT:
 		if (CanMoveLeft(pObj))
 			pObj->GetTransform()->Translate(-m_MoveSpeed * euh, 0, 0);
 		else m_LastDirection = Direction::NONE;
 		break;
-	case PookaWander::Direction::RIGHT:
+	case FygarWander::Direction::RIGHT:
 		if (CanMoveRight(pObj))
 			pObj->GetTransform()->Translate(m_MoveSpeed * euh, 0, 0);
 		else m_LastDirection = Direction::NONE;
@@ -76,10 +77,10 @@ int PookaWander::Update(dae::GameObject * pObj)
 		break;
 	}
 
-	return int(Pooka::PookaState::WANDER);
+	return int(Fygar::FygarState::WANDER);
 }
 
-void PookaWander::Reset()
+void FygarWander::Reset()
 {
 	m_LastDirection = Direction::NONE;
 }
