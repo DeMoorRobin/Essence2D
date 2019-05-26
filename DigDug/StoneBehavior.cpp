@@ -62,7 +62,7 @@ void StoneBehavior::Update()
 	}
 	break;
 	case State::WAIT:
-		m_ElapsedSec += dae::Time::GetInstance().GetDeltaTime();
+		m_ElapsedSec += float(dae::Time::GetInstance().GetDeltaTime());
 		
 		if (m_ElapsedSec >= m_WaitTimer)
 		{
@@ -93,7 +93,7 @@ void StoneBehavior::Update()
 		else m_IsPlayerUnderNeath = false;
 		break;
 	case State::FALLING:
-		m_pGameObject->GetTransform()->Translate(0, -90.0f*dae::Time::GetInstance().GetDeltaTime(), 0);
+		m_pGameObject->GetTransform()->Translate(0, float(-90.0*dae::Time::GetInstance().GetDeltaTime()), 0);
 		{
 			float tileSize = 5.0f;
 			for (int i{ -2 }; i < 3; ++i)
@@ -121,7 +121,7 @@ void StoneBehavior::Update()
 		}
 		break;
 	case State::DESPAWNING:
-		m_ElapsedSec += dae::Time::GetInstance().GetDeltaTime();
+		m_ElapsedSec += float(dae::Time::GetInstance().GetDeltaTime());
 		if (m_ElapsedSec >= m_WaitTimer)
 		{
 			m_pGameObject->GetScene()->RemoveChild(m_pGameObject);

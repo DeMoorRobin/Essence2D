@@ -32,7 +32,7 @@ dae::AnimationRenderComponent::~AnimationRenderComponent()
 void dae::AnimationRenderComponent::AddAnimation(std::vector<Frame>* pAnimation, int id)
 {
 	m_pFrames.push_back(pAnimation);
-	m_IdToAnimMap[id] = m_pFrames.size() - 1;
+	m_IdToAnimMap[id] = int(m_pFrames.size() - 1);
 	
 }
 

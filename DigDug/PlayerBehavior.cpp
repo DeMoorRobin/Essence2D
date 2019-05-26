@@ -101,7 +101,7 @@ bool PlayerBehavior::CanMoveY()
 
 void PlayerBehavior::MoveLeft()
 {
-	m_pGameObject->GetTransform()->Translate(-m_MoveSpeed * dae::Time::GetInstance().GetDeltaTime(), 0, 0);
+	m_pGameObject->GetTransform()->Translate(float(-m_MoveSpeed * dae::Time::GetInstance().GetDeltaTime()), 0, 0);
 
 	GLuint checkTile{ dae::GridHelper::GetTile(m_pGameObject->GetTransform()->GetPosition().x - 3.0f*tileSize, m_pGameObject->GetTransform()->GetPosition().y) };
 	if(m_pGrid->IsTileEmpty(checkTile))
@@ -111,7 +111,7 @@ void PlayerBehavior::MoveLeft()
 
 void PlayerBehavior::MoveRight()
 {
-	m_pGameObject->GetTransform()->Translate(m_MoveSpeed * dae::Time::GetInstance().GetDeltaTime(), 0, 0);
+	m_pGameObject->GetTransform()->Translate(float(m_MoveSpeed * dae::Time::GetInstance().GetDeltaTime()), 0, 0);
 	GLuint checkTile { dae::GridHelper::GetTile(m_pGameObject->GetTransform()->GetPosition().x + 3.0f*tileSize, m_pGameObject->GetTransform()->GetPosition().y)};
 	if (m_pGrid->IsTileEmpty(checkTile))
 		m_pAnim->SetCurrentAnimation(int(Animation::RUNRIGHT), 0.3f);

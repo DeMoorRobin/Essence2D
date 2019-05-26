@@ -20,13 +20,13 @@ int PookaInflate::Update(dae::GameObject * pObj)
 {
 	if (m_WasPumped)
 	{
-		m_InflateTime += dae::Time::GetInstance().GetDeltaTime();
+		m_InflateTime += float(dae::Time::GetInstance().GetDeltaTime());
 		
 		m_WasPumped = false;
 	}
 	else
 	{
-		m_InflateTime -= dae::Time::GetInstance().GetDeltaTime();
+		m_InflateTime -= float(dae::Time::GetInstance().GetDeltaTime());
 		if (m_InflateTime <= -0.3f)
 			return int(Pooka::PookaState::WANDER);
 	}

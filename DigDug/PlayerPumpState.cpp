@@ -80,7 +80,7 @@ int PlayerPumpState::Update(dae::GameObject * pObj)
 		m_PumpAliveTime = 0;
 	}
 
-	m_PumpAliveTime += dae::Time::GetInstance().GetDeltaTime();
+	m_PumpAliveTime += float(dae::Time::GetInstance().GetDeltaTime());
 	if (m_PumpAliveTime > 0.5f || m_TimeSinceTrigger > 0.2f)
 	{
 		m_pScene->RemoveChild(m_pPump);
@@ -88,7 +88,7 @@ int PlayerPumpState::Update(dae::GameObject * pObj)
 		return int(Player::PlayerState::Moving);
 	}
 
-	m_TimeSinceTrigger += dae::Time::GetInstance().GetDeltaTime();
+	m_TimeSinceTrigger += float(dae::Time::GetInstance().GetDeltaTime());
 	if (dae::InputManager::GetInstance().GetButton("Pump"))
 	{
 		m_TimeSinceTrigger = 0;

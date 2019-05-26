@@ -105,7 +105,7 @@ bool PookaChase::GoToLocation(dae::GameObject* pObj)
 		{
 			if (CanMoveLeft(pObj))
 			{
-				pObj->GetTransform()->Translate(-m_MoveSpeed * dae::Time::GetInstance().GetDeltaTime(), 0);
+				pObj->GetTransform()->Translate(float(-m_MoveSpeed * dae::Time::GetInstance().GetDeltaTime()), 0);
 				m_LastDirection = Direction::LEFT;
 			}
 			else yFailed = true;

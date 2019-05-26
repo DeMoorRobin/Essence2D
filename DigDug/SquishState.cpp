@@ -19,7 +19,7 @@ SquishState::SquishState(dae::Scene * pScene, dae::AnimationRenderComponent * pA
 
 int SquishState::Update(dae::GameObject * pObj)
 {
-	m_AliveTime += dae::Time::GetInstance().GetDeltaTime();
+	m_AliveTime += float(dae::Time::GetInstance().GetDeltaTime());
 	if (m_AliveTime >= 0.7f)
 	{
 		m_pObserver->OnNotify(pObj, dae::Event::ENEMY_SQUISHED);
